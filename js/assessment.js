@@ -487,6 +487,10 @@
       createdDateTime: new Date().toISOString(),
       Status: "Score Generated",
       status: "Score Generated",
+      Score: state.scores.total,
+      score: state.scores.total,
+      TotalScore: state.scores.total,
+      totalScore: state.scores.total,
 
       // Identity & Attribution
       title: leadId,
