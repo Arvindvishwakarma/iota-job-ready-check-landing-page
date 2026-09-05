@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+
+  <!-- SEO & Social Meta Tags -->
+  <title>FREE Job-Ready Check | IOTA Academy Mandsaur</title>
+  <meta name="description"
+    content="Take the FREE Job-Ready Check by IOTA Academy Mandsaur. Check your practical skills and understand where you stand before starting your job-ready journey." />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Meta Ads Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FREE Job-Ready Check | IOTA Academy Mandsaur" />
+  <meta property="og:description"
+    content="Check practical computer, Excel, AI, and problem-solving skills for free in 5–10 minutes. Ramtekri, Mandsaur." />
+  <meta property="og:site_name" content="IOTA Academy Mandsaur" />
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- =======================================================================
+       STICKY HEADER
+       ======================================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <div class="header-inner">
+
+        <!-- Brand Logo / Navigation Menu Identity -->
+        <a href="#top" class="brand-logo" aria-label="IOTA Academy Mandsaur Home">
+          <!-- 
+            ===================================================================
+            LOGO PLACEHOLDER IMAGE
+            To replace with your official IOTA Academy logo:
+            1. Put your logo file in the 'images/' folder or project root (e.g. 'logo.jpg')
+            2. Update the 'src' attribute below:
+               - Example with your root file:  src="logo.jpg"
+               - Example with a custom file:   src="images/iota-academy-logo.png"
+               - Horizontal placeholder:       src="images/logo-placeholder-wide.svg"
+            ===================================================================
+          -->
+          <img src="logo.jpg" alt="IOTA Academy Logo" class="brand-logo-img" id="brand-logo-img" width="38"
+            height="38" />
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="desktop-nav" aria-label="Main Navigation">
+          <a href="#top">Home</a>
+          <a href="#what-you-check">Job-Ready Check</a>
+          <a href="#trust">Why IOTA</a>
+          <a href="#one-week-experience">1-Week Experience</a>
+        </nav>
+
+        <!-- Header CTA -->
+        <div class="header-action">
+          <button type="button" class="btn btn-primary header-cta-btn js-start-check" id="header-start-btn">
+            Start Free Check
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       HERO SECTION
+       ======================================================================= -->
+  <section class="hero-section" id="top">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- Hero Content (Left) -->
+        <div class="hero-content">
+
+          <!-- Exact H1 Copy Required -->
+          <h1 class="hero-title">Degree Hai. Job-Ready Ho?</h1>
+
+          <!-- Exact H3 Copy Required -->
+          <h3 class="hero-subtitle">Find out with a FREE Job-Ready Check.</h3>
+
+          <p class="hero-description">
+            Check your practical skills and understand <strong>where you stand.</strong>
+          </p>
+
+          <!-- 3 Benefit Badges Required -->
+          <div class="benefit-badges-row">
+            <span class="benefit-badge">
+              <span class="check-icon">✓</span> FREE
+            </span>
+            <span class="benefit-badge">
+              <span class="check-icon">✓</span> 5–10 Minutes
+            </span>
+            <span class="benefit-badge">
+              <span class="check-icon">✓</span> No Admission Required
+            </span>
+          </div>
+
+          <!-- Primary CTA & WhatsApp Contact -->
+          <div class="hero-cta-wrapper">
+            <button type="button" class="btn btn-primary btn-lg js-start-check" id="hero-primary-cta">
+              Start Free Check
+              <!-- <span aria-hidden="true">→</span> -->
+            </button>
+            <a href="https://wa.me/917024040225?text=Hi%20IOTA%20Academy%20Mandsaur%2C%20I%20want%20to%20connect%20with%20you%20regarding%20the%20Job-Ready%20Check."
+              target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg js-whatsapp-link"
+              data-wa-type="HERO_CONTACT" id="hero-whatsapp-cta" title="Chat on WhatsApp (7024040225)">
+              <svg class="btn-wa-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"
+                aria-hidden="true">
+                <path
+                  d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.95.518 1.777.781 2.796.781 3.182 0 5.768-2.587 5.768-5.768.001-3.182-2.585-5.768-5.768-5.768zm3.393 8.3c-.149.418-.752.766-1.049.809-.272.039-.623.072-1.012-.054-.251-.081-.575-.195-1.013-.383-1.848-.795-3.047-2.673-3.14-2.797-.093-.124-.753-1.002-.753-1.912 0-.91.477-1.357.647-1.543.17-.186.372-.232.496-.232.124 0 .248.001.356.006.114.006.267-.043.418.32.155.372.528 1.288.574 1.381.047.093.078.202.016.326-.062.124-.093.202-.186.31-.093.109-.196.243-.28.326-.093.093-.19.195-.082.381.109.186.482.795 1.034 1.286.711.633 1.311.83 1.497.923.186.093.295.078.404-.047.109-.124.466-.543.59-.73.124-.186.248-.155.418-.093.17.062 1.086.512 1.272.605.186.093.31.14.356.217.047.078.047.45-.102.868zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.306A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.604 0-3.096-.454-4.364-1.238l-.313-.193-2.947.773.786-2.87-.212-.338A8.132 8.132 0 0 1 3.833 12c0-4.503 3.664-8.167 8.167-8.167 4.503 0 8.167 3.664 8.167 8.167 0 4.503-3.664 8.167-8.167 8.167z" />
+              </svg>
+              <span>Contact Us on WhatsApp</span>
+            </a>
+          </div>
+
+          <!-- Trust & Social Proof Note -->
+          <div class="hero-footer-note">
+            <span>IOTA Academy Mandsaur</span>
+            <span class="dot-sep">•</span>
+            <span class="hero-rating-note"><span class="hero-star">4.9★</span> / 424 Google Reviews</span>
+            <span class="dot-sep">•</span>
+            <strong>1 Week Free Class Experience</strong>
+          </div>
+        </div>
+
+        <!-- How IOTA Works Card (Right) -->
+        <div class="how-iota-card" aria-label="How IOTA Works">
+          <div class="how-iota-header">
+            <span class="how-iota-tag">HOW IOTA WORKS</span>
+            <h3 class="how-iota-title">Check. Experience. Decide.</h3>
+            <p class="how-iota-subheading">A simple way to know if IOTA is right for you.</p>
+          </div>
+
+          <div class="how-iota-steps">
+            <!-- STEP 01: CHECK -->
+            <div class="how-step-item">
+              <div class="step-indicator">
+                <span class="step-num">01</span>
+                <span class="step-line" aria-hidden="true"></span>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">CHECK</h4>
+                <p class="step-desc">Take the FREE Job-Ready Check.</p>
+              </div>
+            </div>
+
+            <!-- STEP 02: EXPERIENCE (Subtle accent) -->
+            <div class="how-step-item how-step-accent">
+              <div class="step-indicator">
+                <span class="step-num step-num-accent">02</span>
+                <span class="step-line" aria-hidden="true"></span>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">EXPERIENCE</h4>
+                <p class="step-desc">Attend 1 week of regular IOTA classes.</p>
+              </div>
+            </div>
+
+            <!-- STEP 03: DECIDE -->
+            <div class="how-step-item">
+              <div class="step-indicator">
+                <span class="step-num">03</span>
+              </div>
+              <div class="step-content">
+                <h4 class="step-title">DECIDE</h4>
+                <p class="step-desc">See the learning experience and decide for yourself.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Reassurance -->
+          <div class="how-iota-footer">
+            <p class="how-footer-text">No admission pressure.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       WHAT WILL YOU CHECK SECTION
+       ======================================================================= -->
+  <section class="section-padding bg-slate-section" id="what-you-check">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">FREE JOB-READY CHECK</span>
+        <h2 class="section-title">Job-Ready Check Mein Kya Check Hoga?</h2>
+        <p class="section-subtitle">
+          6 practical areas check karke samjhiye ki aap abhi kahan stand karte hain.
+        </p>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Card 1: Computer Skills -->
+        <div class="skill-card">
+          <div class="skill-icon-wrap" aria-hidden="true">
+            <svg class="skill-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="skill-info">
+            <h3 class="skill-title">Computer Skills</h3>
+            <p class="skill-desc">Essential tools aur workplace basics</p>
+          </div>
+        </div>
+
+        <!-- Card 2: Excel & Data -->
+        <div class="skill-card">
+          <div class="skill-icon-wrap" aria-hidden="true">
+            <svg class="skill-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="20" x2="12" y2="10"></line>
+              <line x1="18" y1="20" x2="18" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="16"></line>
+            </svg>
+          </div>
+          <div class="skill-info">
+            <h3 class="skill-title">Excel & Data</h3>
+            <p class="skill-desc">Data, formulas aur analysis ke saath kaam karna</p>
+          </div>
+        </div>
+
+        <!-- Card 3: Problem Solving -->
+        <div class="skill-card">
+          <div class="skill-icon-wrap" aria-hidden="true">
+            <svg class="skill-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5">
+              </path>
+              <path d="M9 18h6"></path>
+              <path d="M10 22h4"></path>
+            </svg>
+          </div>
+          <div class="skill-info">
+            <h3 class="skill-title">Problem Solving</h3>
+            <p class="skill-desc">Real-world problems ko logically solve karna</p>
+          </div>
+        </div>
+
+        <!-- Card 4: AI for Work -->
+        <div class="skill-card">
+          <div class="skill-icon-wrap" aria-hidden="true">
+            <svg class="skill-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z">
+              </path>
+              <path d="M5 3v4"></path>
+              <path d="M3 5h4"></path>
+              <path d="M19 17v4"></path>
+              <path d="M17 19h4"></path>
+            </svg>
+          </div>
+          <div class="skill-info">
+            <h3 class="skill-title">AI for Work</h3>
+            <p class="skill-desc">AI ka use karke smarter kaam karna</p>
+          </div>
+        </div>
+
+        <!-- Card 5: Communication -->
+        <div class="skill-card">
+          <div class="skill-icon-wrap" aria-hidden="true">
+            <svg class="skill-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <div class="skill-info">
+            <h3 class="skill-title">Communication</h3>
+            <p class="skill-desc">Apni skills confidently explain karna</p>
+          </div>
+        </div>
+
+        <!-- Card 6: Interview & Career Readiness -->
+        <div class="skill-card">
+          <div class="skill-icon-wrap" aria-hidden="true">
+            <svg class="skill-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          </div>
+          <div class="skill-info">
+            <h3 class="skill-title">Interview & Career Readiness</h3>
+            <p class="skill-desc">Resume, interview aur career preparation</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mid CTA -->
+      <div class="section-cta-wrap">
+        <button type="button" class="btn btn-primary js-start-check" id="skills-cta-btn">
+          TAKE THE FREE CHECK
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       HOW IT WORKS SECTION
+       ======================================================================= -->
+  <section class="section-padding bg-white" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Step-by-Step</span>
+        <h2 class="section-title">Simple. Free. Useful.</h2>
+        <p class="section-subtitle">
+          3 simple steps to find out where you stand and get practical clarity.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3 class="step-title">Take the Check</h3>
+          <p class="step-desc">Complete a short online assessment.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3 class="step-title">See Your Score</h3>
+          <p class="step-desc">Understand your strengths and improvement areas.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3 class="step-title">Visit IOTA</h3>
+          <p class="step-desc">Get a FREE detailed Job-Ready Check at our Mandsaur classroom.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =======================================================================
+       1-WEEK EXPERIENCE SECTION (Visually Prominent)
+       ======================================================================= -->
+  <section class="experience-section bg-white" id="one-week-experience">
+    <div class="container">
+      <div class="experience-banner-card">
+
+        <h2 class="experience-title">Experience IOTA Before You Decide.</h2>
+        <h3 class="experience-subheading">Admission se pehle 1 week ki regular class experience kijiye.</h3>
+
+        <div class="experience-checklist">
+          <div class="checklist-intro">Khud dekhiye:</div>
+          <div class="checklist-item">
+            <span class="chk">✓</span>
+            <span>Classroom experience kaisa hai</span>
+          </div>
+          <div class="checklist-item">
+            <span class="chk">✓</span>
+            <span>Teaching aur learning kaise hoti hai</span>
+          </div>
+          <div class="checklist-item">
+            <span class="chk">✓</span>
+            <span>Aap practically kya seekhenge</span>
+          </div>
+        </div>
+
+        <div class="experience-tagline">Phir khud decide kijiye.</div>
+
+        <button type="button" class="btn btn-primary btn-lg js-book-experience" id="exp-cta-btn">
+          BOOK 1-WEEK EXPERIENCE
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       TRUST SECTION (4.9★ / 424+ Reviews)
+       ======================================================================= -->
+  <section class="section-padding bg-slate-section" id="trust">
+    <div id="why-iota"></div>
+    <div class="container">
+      <div class="section-header trust-header">
+        <span class="section-tag">STUDENT TRUST</span>
+        <h2 class="section-title">Why Students Choose IOTA</h2>
+        <p class="section-subtitle">
+          A 4.9★ Google rating reflects the experience of our students and learners.
+        </p>
+      </div>
+
+      <div class="trust-stat-box">
+        <!-- Main Review Proof -->
+        <div class="trust-rating-main">
+          <div class="trust-stars-row" aria-label="5 out of 5 stars">
+            <svg class="star-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            <svg class="star-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            <svg class="star-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            <svg class="star-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            <svg class="star-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          </div>
+
+          <div class="trust-score">
+            4.9 <span class="trust-scale">/ 5</span>
+          </div>
+          <div class="trust-reviews-count">424+ Google Reviews</div>
+        </div>
+
+        <!-- 3 Compact Supporting Trust Proof Blocks -->
+        <div class="trust-signals-row">
+          <div class="trust-signal-item">
+            <span class="trust-signal-value">4.9★</span>
+            <span class="trust-signal-label">Google Rating</span>
+          </div>
+          <div class="trust-signal-item">
+            <span class="trust-signal-value">424+</span>
+            <span class="trust-signal-label">Google Reviews</span>
+          </div>
+          <div class="trust-signal-item">
+            <span class="trust-signal-value">INDORE</span>
+            <span class="trust-signal-label">Established Presence</span>
+          </div>
+        </div>
+
+        <p class="trust-branch-note">
+          Now serving students in Mandsaur at Ramtekri.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =======================================================================
+       FINAL CTA SECTION
+       ======================================================================= -->
+  <section class="section-padding bg-light-blue-section" id="final-cta">
+    <div class="container">
+      <div class="final-cta-card">
+        <span class="final-cta-tag">READY TO FIND OUT WHERE YOU STAND?</span>
+        <h2 class="final-cta-title">Apna Job-Ready Level Check Kijiye.</h2>
+        <p class="final-cta-sub">Sirf 5–10 minutes. FREE. No admission required.</p>
+
+        <div class="final-cta-action">
+          <button type="button" class="btn btn-primary btn-lg js-start-check" id="final-cta-btn">
+            START FREE CHECK
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <p class="final-cta-reassurance">Pehle check kijiye. Phir decide kijiye.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       FOOTER
+       ======================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>IOTA Academy</h4>
+          <p>Mandsaur | Ramtekri • <strong>Become Job-Ready.</strong></p>
+        </div>
+        <div class="footer-nav">
+          <a href="#top" class="js-start-check">Job-Ready Check</a>
+          <a href="#programs">Programs</a>
+          <a href="#trust">Why IOTA</a>
+          <a href="#one-week-experience">1-Week Experience</a>
+          <a href="#" class="js-whatsapp-link" data-wa-type="DEFAULT">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; <span id="current-year">2025</span> IOTA Academy Mandsaur. All rights reserved. Ramtekri, Mandsaur,
+        Madhya Pradesh.
+      </div>
+    </div>
+  </footer>
+
+  <!-- =======================================================================
+       STICKY MOBILE CTA (Always visible on mobile scroll)
+       ======================================================================= -->
+  <div class="sticky-mobile-cta" id="sticky-mobile-cta">
+    <button type="button" class="btn btn-primary btn-full js-start-check" id="mobile-sticky-btn">
+      START FREE JOB-READY CHECK →
+    </button>
+  </div>
+
+  <!-- =======================================================================
+       FLOATING WHATSAPP BUTTON
+       ======================================================================= -->
+  <button type="button" class="floating-whatsapp-btn js-whatsapp-link" data-wa-type="DEFAULT"
+    aria-label="Chat on WhatsApp with IOTA Academy Mandsaur">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
+      <path
+        d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.95.518 1.777.781 2.796.781 3.182 0 5.768-2.587 5.768-5.768.001-3.182-2.585-5.768-5.768-5.768zm3.393 8.3c-.149.418-.752.766-1.049.809-.272.039-.623.072-1.012-.054-.251-.081-.575-.195-1.013-.383-1.848-.795-3.047-2.673-3.14-2.797-.093-.124-.753-1.002-.753-1.912 0-.91.477-1.357.647-1.543.17-.186.372-.232.496-.232.124 0 .248.001.356.006.114.006.267-.043.418.32.155.372.528 1.288.574 1.381.047.093.078.202.016.326-.062.124-.093.202-.186.31-.093.109-.196.243-.28.326-.093.093-.19.195-.082.381.109.186.482.795 1.034 1.286.711.633 1.311.83 1.497.923.186.093.295.078.404-.047.109-.124.466-.543.59-.73.124-.186.248-.155.418-.093.17.062 1.086.512 1.272.605.186.093.31.14.356.217.047.078.047.45-.102.868zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.306A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.604 0-3.096-.454-4.364-1.238l-.313-.193-2.947.773.786-2.87-.212-.338A8.132 8.132 0 0 1 3.833 12c0-4.503 3.664-8.167 8.167-8.167 4.503 0 8.167 3.664 8.167 8.167 0 4.503-3.664 8.167-8.167 8.167z" />
+    </svg>
+  </button>
+
+  <!-- =======================================================================
+       ASSESSMENT MULTI-STEP MODAL
+       ======================================================================= -->
+  <div class="modal-overlay hidden" id="assessment-modal" role="dialog" aria-modal="true"
+    aria-labelledby="assessment-modal-title">
+    <div class="modal-card">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span style="color: #2563eb; font-weight: 800;">⚡</span>
+          <span id="assessment-modal-title" style="font-weight: 800; font-size: 15px; color: #0f172a;">
+            Job-Ready Check - IOTA Academy, Mandsaur
+          </span>
+        </div>
+        <button type="button" class="modal-close-btn js-close-modal" aria-label="Close Assessment">
+          ✕
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- STEP 1: QUIZ QUESTIONS VIEW -->
+        <div id="quiz-step-view">
+          <div class="quiz-top-bar">
+            <div class="quiz-meta-row">
+              <span class="quiz-counter" id="quiz-counter">Question 1 of 10</span>
+              <span class="quiz-category-tag" id="quiz-category-badge">💻 Computer Skills</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-fill" id="quiz-progress-bar"></div>
+            </div>
+          </div>
+
+          <h3 class="question-heading" id="quiz-question-text">
+            Question text loading...
+          </h3>
+
+          <div class="options-list" id="quiz-options-container" role="radiogroup">
+            <!-- Dynamic options rendered by assessment.js -->
+          </div>
+
+          <!-- Mandatory Option Alert -->
+          <div class="quiz-error-alert hidden" id="quiz-mandatory-alert" role="alert" aria-live="polite">
+            <svg class="quiz-alert-icon" viewBox="0 0 20 20" width="16" height="16" fill="currentColor"
+              aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>Please select an option to continue. Choosing an option is mandatory.</span>
+          </div>
+
+          <div class="quiz-footer-actions">
+            <button type="button" class="btn btn-secondary btn-sm" id="quiz-prev-btn">
+              ← Previous
+            </button>
+            <button type="button" class="btn btn-primary" id="quiz-next-btn">
+              Next <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: LEAD CAPTURE VIEW (Appears after Q10) -->
+        <div id="lead-step-view" class="hidden lead-step-wrap">
+          <div class="lead-step-header">
+            <span class="lead-step-badge">✓ Assessment Completed</span>
+            <h3 class="lead-step-title">Your Details</h3>
+            <p class="lead-step-desc">
+              Kripya apni details enter kijiye taaki aapka Job-Ready Scorecard generate ho sake.
+            </p>
+          </div>
+
+          <form id="lead-capture-form" novalidate>
+            <!-- Full Name -->
+            <div class="form-group">
+              <label class="form-label" for="lead-name">
+                Full Name <span class="req">*</span>
+              </label>
+              <input type="text" id="lead-name" class="form-control" placeholder="Aapka pura naam" required />
+            </div>
+
+            <!-- WhatsApp Number -->
+            <div class="form-group">
+              <label class="form-label" for="lead-phone">
+                WhatsApp Number <span class="req">*</span>
+              </label>
+              <div class="phone-input-wrap">
+                <span class="phone-prefix">+91</span>
+                <input type="tel" id="lead-phone" class="form-control" placeholder="10-digit WhatsApp number"
+                  maxlength="10" required />
+              </div>
+            </div>
+
+            <!-- Education Dropdown (Required) -->
+            <div class="form-group">
+              <label class="form-label" for="lead-education">
+                Highest / Current Education <span class="req">*</span>
+              </label>
+              <select id="lead-education" class="form-control" required>
+                <option value="" disabled selected>Select Education</option>
+                <option value="12th">12th</option>
+                <option value="College Student">College Student</option>
+                <option value="Graduate">Graduate</option>
+                <option value="Postgraduate">Postgraduate</option>
+                <option value="Working Professional">Working Professional</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <!-- Degree (Optional) -->
+            <div class="form-group">
+              <label class="form-label" for="lead-course">
+                Degree <span style="font-size: 11px; font-weight: normal; color: #64748b;">(Optional)</span>
+              </label>
+              <input type="text" id="lead-course" class="form-control" placeholder="e.g. B.Com, BCA, B.Tech, etc." />
+            </div>
+
+            <div id="lead-error-msg" class="form-error-msg hidden" role="alert"></div>
+
+            <div style="margin-top: 20px;">
+              <button type="submit" class="btn btn-primary btn-full btn-lg" id="lead-submit-btn">
+                SHOW MY JOB-READY SCORE
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- STEP 3: RESULT PAGE VIEW -->
+        <div id="result-step-view" class="hidden">
+
+          <!-- Score Box -->
+          <div class="result-header-box">
+            <h3 class="result-main-title">Your Job-Ready Score</h3>
+            <div class="result-score-highlight" id="result-score-val">-- / 100</div>
+            <div class="result-student-tag" id="result-student-name">Report</div>
+
+            <div class="encouraging-box">
+              <strong style="color: #2563eb; display: block; margin-bottom: 2px;">You're on the right track.</strong>
+              You already have some useful skills. Now you know which areas you can improve to become more job-ready.
+            </div>
+          </div>
+
+          <!-- Category Breakdown -->
+          <div class="result-skills-wrap">
+            <h4 class="result-section-heading">Skill Breakdown</h4>
+            <div id="result-categories-container">
+              <!-- Rendered dynamically by assessment.js -->
+            </div>
+          </div>
+
+          <!-- Result CTA Card connecting to Mandsaur Branch -->
+          <div class="result-cta-card">
+            <h3>Want a Detailed Job-Ready Check?</h3>
+            <p>Visit IOTA Academy Mandsaur and get your practical skills assessed in more detail.</p>
+
+            <div class="result-cta-buttons">
+              <button type="button" class="btn btn-primary js-book-detailed-check">
+                BOOK MY FREE DETAILED CHECK
+              </button>
+              <button type="button" class="btn btn-whatsapp js-whatsapp-link" data-wa-type="AFTER_ASSESSMENT">
+                <svg class="btn-wa-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"
+                  aria-hidden="true">
+                  <path
+                    d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.95.518 1.777.781 2.796.781 3.182 0 5.768-2.587 5.768-5.768.001-3.182-2.585-5.768-5.768-5.768zm3.393 8.3c-.149.418-.752.766-1.049.809-.272.039-.623.072-1.012-.054-.251-.081-.575-.195-1.013-.383-1.848-.795-3.047-2.673-3.14-2.797-.093-.124-.753-1.002-.753-1.912 0-.91.477-1.357.647-1.543.17-.186.372-.232.496-.232.124 0 .248.001.356.006.114.006.267-.043.418.32.155.372.528 1.288.574 1.381.047.093.078.202.016.326-.062.124-.093.202-.186.31-.093.109-.196.243-.28.326-.093.093-.19.195-.082.381.109.186.482.795 1.034 1.286.711.633 1.311.83 1.497.923.186.093.295.078.404-.047.109-.124.466-.543.59-.73.124-.186.248-.155.418-.093.17.062 1.086.512 1.272.605.186.093.31.14.356.217.047.078.047.45-.102.868zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.306A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.604 0-3.096-.454-4.364-1.238l-.313-.193-2.947.773.786-2.87-.212-.338A8.132 8.132 0 0 1 3.833 12c0-4.503 3.664-8.167 8.167-8.167 4.503 0 8.167 3.664 8.167 8.167 0 4.503-3.664 8.167-8.167 8.167z" />
+                </svg>
+                <span>WhatsApp Us</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       DETAILED CHECK BOOKING MODAL (Mandsaur Classroom Walk-In)
+       ======================================================================= -->
+  <div class="modal-overlay hidden" id="detailed-booking-modal" role="dialog" aria-modal="true">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h4 style="font-weight: 800; font-size: 15px; color: #0f172a;">
+          Book Free Detailed Check at Ramtekri
+        </h4>
+        <button type="button" class="modal-close-btn js-close-detailed-modal"
+          onclick="IOTA_ASSESSMENT.closeDetailedBooking()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 18px;">
+          Meet our on-ground coordinator at <strong>IOTA Academy Mandsaur (Ramtekri)</strong> for a 1-on-1 practical
+          skill evaluation.
+        </p>
+        <form id="detailed-check-form">
+          <div class="form-group">
+            <label class="form-label" for="detailed-name">Your Name</label>
+            <input type="text" id="detailed-name" class="form-control" placeholder="Enter your name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="detailed-phone">WhatsApp Number</label>
+            <div class="phone-input-wrap">
+              <span class="phone-prefix">+91</span>
+              <input type="tel" id="detailed-phone" class="form-control" placeholder="10-digit number" maxlength="10"
+                required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="detailed-date">
+              Preferred Date <span style="font-size: 11px; font-weight: normal; color: #64748b;">(Optional)</span>
+            </label>
+            <input type="date" id="detailed-date" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="detailed-time">
+              Preferred Time Slot <span style="font-size: 11px; font-weight: normal; color: #64748b;">(Optional)</span>
+            </label>
+            <select id="detailed-time" class="form-control">
+              <option value="Any Time Slot / Flexible" selected>Any Time Slot / Flexible</option>
+              <option value="Morning (10:00 AM - 1:00 PM)">Morning (10:00 AM - 1:00 PM)</option>
+              <option value="Afternoon (2:00 PM - 5:00 PM)">Afternoon (2:00 PM - 5:00 PM)</option>
+              <option value="Evening (5:00 PM - 7:00 PM)">Evening (5:00 PM - 7:00 PM)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top: 10px;">
+            CONFIRM MY FREE DETAILED CHECK
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       1-WEEK EXPERIENCE BOOKING MODAL
+       ======================================================================= -->
+  <div class="modal-overlay hidden" id="experience-booking-modal" role="dialog" aria-modal="true">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h4 style="font-weight: 800; font-size: 15px; color: #0f172a;">
+          Book 1-Week Class Experience
+        </h4>
+        <button type="button" class="modal-close-btn" onclick="IOTA_ASSESSMENT.closeExperienceBooking()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 18px;">
+          Attend 1 week regular class before admission at Ramtekri Mandsaur. <strong>Khud dekhiye aur phir decide
+            kijiye.</strong>
+        </p>
+        <form id="experience-form">
+          <div class="form-group">
+            <label class="form-label" for="exp-name">Full Name</label>
+            <input type="text" id="exp-name" class="form-control" placeholder="Enter your full name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="exp-phone">WhatsApp Number</label>
+            <div class="phone-input-wrap">
+              <span class="phone-prefix">+91</span>
+              <input type="tel" id="exp-phone" class="form-control" placeholder="10-digit number" maxlength="10"
+                required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="exp-program">Select Program Track</label>
+            <select id="exp-program" class="form-control" required>
+              <option value="Data Analytics with AI">Data Analytics with AI</option>
+              <option value="Data Science with AI">Data Science with AI</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top: 10px;">
+            RESERVE MY 1-WEEK EXPERIENCE SLOT
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       JAVASCRIPT MODULES
+       ======================================================================= -->
+  <script src="config.js"></script>
+  <script src="js/tracking.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/assessment.js"></script>
+  <script>
+    // Update footer year dynamically
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- =======================================================================
+       SUCCESS CONFIRMATION ALERT MODAL (Call, Address, WhatsApp)
+       ======================================================================= -->
+  <div class="modal-overlay hidden" id="success-alert-modal" role="dialog" aria-modal="true">
+    <div class="modal-card" style="max-width: 480px; text-align: center;">
+      <div class="modal-header">
+        <h4 style="font-weight: 800; font-size: 15px; color: #0f172a;">
+          Request Received
+        </h4>
+        <button type="button" class="modal-close-btn" onclick="IOTA_ASSESSMENT.closeSuccessModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 24px 20px;">
+        <div class="success-icon-badge">✓</div>
+        <h3 id="success-modal-title" style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">
+          Booking Confirmed!
+        </h3>
+        <p id="success-modal-desc" style="font-size: 13.5px; color: #64748b; margin-bottom: 20px; line-height: 1.5;">
+          Thank you! We have received your details. Our Mandsaur coordinator will connect with you shortly.
+        </p>
+
+        <!-- 3 Contact & Location Options -->
+        <div class="success-options-grid">
+
+          <!-- 1. CALL OPTION -->
+          <a id="success-call-btn" href="tel:7024040225" class="success-action-card success-call">
+            <div class="success-action-icon">📞</div>
+            <div class="success-action-info">
+              <span class="success-action-label">Call Coordinator Directly</span>
+              <strong class="success-action-value">+91 7024040225</strong>
+            </div>
+            <span class="success-action-arrow">→</span>
+          </a>
+
+          <!-- 2. WHATSAPP OPTION -->
+          <a id="success-wa-btn" href="#" class="success-action-card success-whatsapp js-whatsapp-link"
+            data-wa-type="AFTER_ASSESSMENT">
+            <div class="success-action-icon">💬</div>
+            <div class="success-action-info">
+              <span class="success-action-label">Instant Chat on WhatsApp</span>
+              <strong class="success-action-value">Connect on WhatsApp</strong>
+            </div>
+            <span class="success-action-arrow">→</span>
+          </a>
+
+          <!-- 3. ADDRESS OPTION -->
+          <div class="success-address-card">
+            <div class="success-action-icon address-icon">📍</div>
+            <div class="success-action-info">
+              <span class="success-action-label">IOTA Academy Mandsaur Branch</span>
+              <strong class="success-action-value address-value">
+                Ramtekri, Mandsaur, Madhya Pradesh
+              </strong>
+              <span class="success-address-sub">Offline Classroom • Live Faculty from Indore</span>
+            </div>
+          </div>
+
+          <!-- Maps Direct Directions Button -->
+          <a href="https://maps.app.goo.gl/eFVa3UPEmkHLnDiy7" target="_blank" rel="noopener noreferrer"
+            class="btn btn-secondary btn-full" style="font-size: 13.5px; min-height: 44px;">
+            📍 Open in Google Maps Directions
+          </a>
+
+        </div>
+
+        <button type="button" class="btn btn-primary btn-full" style="margin-top: 16px;"
+          onclick="IOTA_ASSESSMENT.closeSuccessModal()">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
