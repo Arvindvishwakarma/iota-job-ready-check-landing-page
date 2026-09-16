@@ -20,11 +20,16 @@
     currentLead: null,
     scores: {
       total: 0,
-      computer: 0,
+      logical_quant: 0,
       excel_data: 0,
+      sql_db: 0,
+      python_data: 0,
+      powerbi_ai: 0,
+      communication: 0,
+      // Legacy backwards-compatibility keys
+      computer: 0,
       problem_solving: 0,
-      ai_work: 0,
-      communication: 0
+      ai_work: 0
     }
   };
 
@@ -42,6 +47,7 @@
 
   function init() {
     modalEl = document.getElementById("assessment-modal");
+    viewIntroEl = document.getElementById("instruction-step-view");
     viewQuizEl = document.getElementById("quiz-step-view");
     viewLeadEl = document.getElementById("lead-step-view");
     viewResultEl = document.getElementById("result-step-view");
@@ -62,6 +68,29 @@
         openAssessment();
       });
     });
+
+    // Instruction Step Checkbox & Proceed
+    const confirmCheckbox = document.getElementById("instruction-confirm-checkbox");
+    const proceedBtn = document.getElementById("instruction-proceed-btn");
+    const hintEl = document.getElementById("instruction-btn-hint");
+
+    if (confirmCheckbox && proceedBtn) {
+      confirmCheckbox.addEventListener("change", () => {
+        const isChecked = confirmCheckbox.checked;
+        proceedBtn.disabled = !isChecked;
+        if (hintEl) {
+          hintEl.style.display = isChecked ? "none" : "block";
+        }
+      });
+
+      proceedBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (!confirmCheckbox.checked) return;
+        tracking.trackEvent("InstructionsConfirmed", {});
+        showQuizStep();
+        renderCurrentQuestion();
+      });
+    }
 
     // Close buttons
     const closeBtns = document.querySelectorAll(".js-close-modal");
@@ -192,8 +221,7 @@
 
     // If starting fresh
     if (!state.currentLead) {
-      showQuizStep();
-      renderCurrentQuestion();
+      showInstructionStep();
     }
   }
 
@@ -209,13 +237,29 @@
     if (stickyCTA) stickyCTA.style.display = "";
   }
 
+  function showInstructionStep() {
+    if (viewIntroEl) viewIntroEl.classList.remove("hidden");
+    if (viewQuizEl) viewQuizEl.classList.add("hidden");
+    if (viewLeadEl) viewLeadEl.classList.add("hidden");
+    if (viewResultEl) viewResultEl.classList.add("hidden");
+
+    const confirmCheckbox = document.getElementById("instruction-confirm-checkbox");
+    const proceedBtn = document.getElementById("instruction-proceed-btn");
+    const hintEl = document.getElementById("instruction-btn-hint");
+    if (confirmCheckbox) confirmCheckbox.checked = false;
+    if (proceedBtn) proceedBtn.disabled = true;
+    if (hintEl) hintEl.style.display = "block";
+  }
+
   function showQuizStep() {
+    if (viewIntroEl) viewIntroEl.classList.add("hidden");
     viewQuizEl.classList.remove("hidden");
     viewLeadEl.classList.add("hidden");
     viewResultEl.classList.add("hidden");
   }
 
   function showLeadStep() {
+    if (viewIntroEl) viewIntroEl.classList.add("hidden");
     viewQuizEl.classList.add("hidden");
     viewLeadEl.classList.remove("hidden");
     viewResultEl.classList.add("hidden");
@@ -228,6 +272,7 @@
   }
 
   function showResultStep() {
+    if (viewIntroEl) viewIntroEl.classList.add("hidden");
     viewQuizEl.classList.add("hidden");
     viewLeadEl.classList.add("hidden");
     viewResultEl.classList.remove("hidden");
@@ -390,15 +435,20 @@
     }
   }
 
-  // Calculate score breakdown
+  // Calculate score breakdown based on exact question marks (Q1-20: 3pts, Q21-30: 4pts)
   function calculateScores() {
     const scores = {
       total: 0,
-      computer: 0,
+      logical_quant: 0,
       excel_data: 0,
+      sql_db: 0,
+      python_data: 0,
+      powerbi_ai: 0,
+      communication: 0,
+      // Legacy aliases
+      computer: 0,
       problem_solving: 0,
-      ai_work: 0,
-      communication: 0
+      ai_work: 0
     };
 
     questions.forEach((q, idx) => {
@@ -409,6 +459,14 @@
         scores.total += points;
       }
     });
+
+    // Populate legacy keys for any existing integrations
+    scores.computer = scores.logical_quant;
+    scores.problem_solving = scores.sql_db;
+    scores.ai_work = scores.powerbi_ai;
+
+    // Safety: total score can never exceed 100
+    scores.total = Math.min(100, Math.max(0, scores.total));
 
     state.scores = scores;
     return scores;
@@ -503,11 +561,16 @@
       college_course: collegeCourse,
       assessment_score: state.scores.total,
       assessmentScore: state.scores.total,
-      computer_score: state.scores.computer,
+      logical_quant_score: state.scores.logical_quant,
       excel_data_score: state.scores.excel_data,
-      problem_solving_score: state.scores.problem_solving,
-      ai_score: state.scores.ai_work,
+      sql_db_score: state.scores.sql_db,
+      python_data_score: state.scores.python_data,
+      powerbi_ai_score: state.scores.powerbi_ai,
       communication_score: state.scores.communication,
+      // Legacy backward-compatibility keys
+      computer_score: state.scores.logical_quant,
+      problem_solving_score: state.scores.sql_db,
+      ai_score: state.scores.powerbi_ai,
       assessment_completed: true,
       detailed_check_requested: false,
       detailed_check_date: "",
@@ -602,6 +665,41 @@
     }
   }
 
+  // Score interpretation helper based on Master Prompt V2 specifications
+  function getScoreInterpretation(score) {
+    if (score <= 30) {
+      return {
+        stage: "Early Stage (0–30)",
+        message: "The student is currently at an early stage of job-readiness. You may need stronger fundamentals in logical thinking, data understanding, and technical skills.",
+        nextStep: "Build fundamentals and understand your learning direction."
+      };
+    } else if (score <= 50) {
+      return {
+        stage: "Developing (31–50)",
+        message: "You have some awareness or exposure but still have important gaps in practical application.",
+        nextStep: "Identify the weakest areas and build practical skills through guided learning and projects."
+      };
+    } else if (score <= 70) {
+      return {
+        stage: "Foundation (51–70)",
+        message: "You have a reasonable foundation but need stronger practical application on real-world data.",
+        nextStep: "Focus on projects, real-world data, problem-solving, and interview preparation."
+      };
+    } else if (score <= 85) {
+      return {
+        stage: "Strong Foundation (71–85)",
+        message: "You demonstrate a strong baseline across several job-readiness areas.",
+        nextStep: "Strengthen project depth, communication, and interview readiness."
+      };
+    } else {
+      return {
+        stage: "Advanced Baseline (86–100)",
+        message: "You demonstrate a strong baseline for the assessment.",
+        nextStep: "Focus on advanced practical projects, portfolio quality, interview preparation, and role-specific skills."
+      };
+    }
+  }
+
   // Render Result Page
   function renderResult() {
     const scoreValEl = document.getElementById("result-score-val");
@@ -614,35 +712,53 @@
       studentNameEl.textContent = `Report for ${state.currentLead.name}`;
     }
 
-    // Render Categories
+    // Dynamic Score Interpretation (diagnostic, encouraging, non-punitive)
+    const stageInfo = getScoreInterpretation(state.scores.total);
+    const stageTitleEl = document.getElementById("result-stage-title");
+    const stageDescEl = document.getElementById("result-stage-desc");
+
+    if (stageTitleEl) {
+      stageTitleEl.textContent = stageInfo.stage;
+    }
+    if (stageDescEl) {
+      stageDescEl.innerHTML = `${escapeHtml(stageInfo.message)} <span style="display:block; margin-top: 6px; font-weight: 700; color: #1e3a8a;">Recommended next step: ${escapeHtml(stageInfo.nextStep)}</span>`;
+    }
+
+    // Render 6 V2 Core Sections
     const categoriesMeta = [
       {
-        key: "computer",
-        title: "Computer Skills",
-        score: state.scores.computer,
-        max: 20
+        key: "logical_quant",
+        title: "Logical & Quantitative Thinking",
+        score: state.scores.logical_quant,
+        max: 15
       },
       {
         key: "excel_data",
-        title: "Excel & Data",
+        title: "Excel & Data Handling",
         score: state.scores.excel_data,
-        max: 20
+        max: 15
       },
       {
-        key: "problem_solving",
-        title: "Problem Solving",
-        score: state.scores.problem_solving,
-        max: 20
+        key: "sql_db",
+        title: "SQL & Database Thinking",
+        score: state.scores.sql_db,
+        max: 15
       },
       {
-        key: "ai_work",
-        title: "AI for Work",
-        score: state.scores.ai_work,
+        key: "python_data",
+        title: "Python & Data Understanding",
+        score: state.scores.python_data,
+        max: 15
+      },
+      {
+        key: "powerbi_ai",
+        title: "Power BI, Visualisation & AI",
+        score: state.scores.powerbi_ai,
         max: 20
       },
       {
         key: "communication",
-        title: "Communication",
+        title: "Communication & Career Readiness",
         score: state.scores.communication,
         max: 20
       }
@@ -657,11 +773,11 @@
         card.className = "result-skill-row";
         card.innerHTML = `
           <div class="result-skill-header">
-            <span class="skill-name">${item.title}</span>
-            <span class="skill-badge ${statusObj.badgeClass}">${statusObj.label}</span>
+            <span class="skill-name">${escapeHtml(item.title)}</span>
+            <span class="skill-badge ${statusObj.badgeClass}">${item.score} / ${item.max} • ${statusObj.label}</span>
           </div>
           <div class="skill-progress-track">
-            <div class="skill-progress-fill ${statusObj.barClass}" style="width: ${(item.score / item.max) * 100}%;"></div>
+            <div class="skill-progress-fill ${statusObj.barClass}" style="width: ${Math.round((item.score / item.max) * 100)}%;"></div>
           </div>
         `;
         container.appendChild(card);
@@ -670,14 +786,14 @@
   }
 
   function getScoreStatus(score, max) {
-    const ratio = score / max;
-    if (ratio >= 0.8) {
+    const ratio = max > 0 ? score / max : 0;
+    if (ratio >= 0.75) {
       return { label: "Good", badgeClass: "badge-good", barClass: "bar-good" };
-    } else if (ratio >= 0.5) {
+    } else if (ratio >= 0.45) {
       return { label: "Basic", badgeClass: "badge-basic", barClass: "bar-basic" };
     } else {
       return {
-        label: "Needs Improvement",
+        label: "Needs Focus",
         badgeClass: "badge-improve",
         barClass: "bar-improve"
       };

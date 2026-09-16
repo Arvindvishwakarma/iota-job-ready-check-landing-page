@@ -547,12 +547,86 @@
 
       <div class="modal-body">
 
+        <!-- STEP 0: INSTRUCTION VIEW (Hinglish - Short & Crisp) -->
+        <div id="instruction-step-view" class="instruction-step-wrap">
+          <div class="instruction-header">
+            <span class="instruction-badge">📋 Zaroori Nirdesh</span>
+            <h3 class="instruction-title">Job-Ready Check (30 Questions)</h3>
+          </div>
+
+          <!-- Reassuring Alert Box (Short & Direct) -->
+          <div class="instruction-reassurance-box">
+            <div class="reassurance-icon">💡</div>
+            <div class="reassurance-content">
+              <h4 class="reassurance-title">Kisi bhi question se darna ya ghabrana nahi hai!</h4>
+              <p class="reassurance-desc">
+                Yeh koi pass/fail wala exam nahi hai — <strong>yeh bas ek check hai to see ki aap Job Ready hain ya
+                  nahi.</strong>
+              </p>
+            </div>
+          </div>
+
+          <!-- Short Quick Highlights -->
+          <div class="instruction-guidelines">
+            <div class="guidelines-grid compact-grid">
+              <div class="guideline-card">
+                <span class="guideline-icon">📝</span>
+                <div class="guideline-text">
+                  <strong>30 Practical Questions:</strong> Office work & problem-solving par based.
+                </div>
+              </div>
+
+              <div class="guideline-card">
+                <span class="guideline-icon">⏱️</span>
+                <div class="guideline-text">
+                  <strong>~15 Minutes:</strong> Aaram se padhein aur bina jaldbazi ke answer karein.
+                </div>
+              </div>
+
+              <div class="guideline-card">
+                <span class="guideline-icon">🎯</span>
+                <div class="guideline-text">
+                  <strong>No Negative Marking:</strong> Sabhi questions ka answer dena mandatory hai.
+                </div>
+              </div>
+
+              <div class="guideline-card">
+                <span class="guideline-icon">📊</span>
+                <div class="guideline-text">
+                  <strong>Instant Scorecard:</strong> Test khatam hote hi detailed report milegi.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Checkbox Confirmation Card -->
+          <div class="instruction-confirm-card">
+            <label class="confirm-checkbox-label" for="instruction-confirm-checkbox">
+              <input type="checkbox" id="instruction-confirm-checkbox" class="confirm-checkbox-input" />
+              <span class="custom-checkbox-box" aria-hidden="true"></span>
+              <span class="confirm-checkbox-text">
+                Maine instructions padh liye hain aur main test shuru karne ke liye taiyar hoon.
+              </span>
+            </label>
+          </div>
+
+          <!-- Proceed Button -->
+          <div class="instruction-action-wrap">
+            <button type="button" class="btn btn-primary btn-full btn-lg" id="instruction-proceed-btn" disabled>
+              Test Shuru Karein (Proceed) →
+            </button>
+            <p class="instruction-btn-hint" id="instruction-btn-hint">
+              Kripya test shuru karne ke liye upar tick karein.
+            </p>
+          </div>
+        </div>
+
         <!-- STEP 1: QUIZ QUESTIONS VIEW -->
-        <div id="quiz-step-view">
+        <div id="quiz-step-view" class="hidden">
           <div class="quiz-top-bar">
             <div class="quiz-meta-row">
-              <span class="quiz-counter" id="quiz-counter">Question 1 of 10</span>
-              <span class="quiz-category-tag" id="quiz-category-badge">💻 Computer Skills</span>
+              <span class="quiz-counter" id="quiz-counter">Question 1 of 30</span>
+              <span class="quiz-category-tag" id="quiz-category-badge">🧮 Logical & Quantitative Thinking</span>
             </div>
             <div class="progress-track" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
               <div class="progress-fill" id="quiz-progress-bar"></div>
@@ -662,9 +736,10 @@
             <div class="result-score-highlight" id="result-score-val">-- / 100</div>
             <div class="result-student-tag" id="result-student-name">Report</div>
 
-            <div class="encouraging-box">
-              <strong style="color: #2563eb; display: block; margin-bottom: 2px;">You're on the right track.</strong>
-              You already have some useful skills. Now you know which areas you can improve to become more job-ready.
+            <div class="encouraging-box" id="result-encouraging-box">
+              <strong style="color: #2563eb; display: block; margin-bottom: 4px;" id="result-stage-title">Report
+                Generating...</strong>
+              <span id="result-stage-desc">Your personalized job-readiness diagnosis will appear here.</span>
             </div>
           </div>
 
@@ -682,9 +757,9 @@
             <p>Visit IOTA Academy Mandsaur and get your practical skills assessed in more detail.</p>
 
             <div class="result-cta-buttons">
-              <button type="button" class="btn btn-primary js-book-detailed-check">
+              <!-- <button type="button" class="btn btn-primary js-book-detailed-check">
                 BOOK MY FREE DETAILED CHECK
-              </button>
+              </button> -->
               <button type="button" class="btn btn-whatsapp js-whatsapp-link" data-wa-type="AFTER_ASSESSMENT">
                 <svg class="btn-wa-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"
                   aria-hidden="true">
