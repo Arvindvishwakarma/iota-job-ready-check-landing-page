@@ -9,9 +9,9 @@ META AD
    ↓
 LANDING PAGE
    ↓
-FREE ONLINE JOB-READY CHECK (10 Practical Questions)
+FREE ONLINE JOB-READY CHECK (30 Practical Questions)
    ↓
-LEAD CAPTURE (Name, 10-Digit WhatsApp, Education)
+LEAD CAPTURE (Name, 10-Digit WhatsApp)
    ↓
 DYNAMIC JOB-READY SCORECARD (0–100 & Skill Breakdown)
    ↓
@@ -94,39 +94,58 @@ window.IOTA_CONFIG = {
 
 ---
 
-## 📊 Lead Data Object Structure
+## 📊 Lead Data Object & Wix CMS Breakdown
 
-Every assessment submission generates a structured lead object:
+Every assessment submission generates a structured lead object with section score breakdowns formatted as `score/max` (e.g. `12/15`, `16/20`):
 
 ```json
 {
+  "FullName": "Aman Sharma",
+  "Phone": "9876543210",
+  "Score": 75,
+  "TotalScore": 75,
+  "ScoreFormatted": "75/100",
+  "Logical & Quantitative Thinking": "12/15",
+  "SQL & Database Thinking": "12/15",
+  "Python & Data Understanding": "9/15",
+  "Power BI, Visualisation & AI": "16/20",
+  "Communication & Career Readiness": "16/20",
+  "Excel & Data Handling": "10/15",
+  "title": "LEAD-1741000000000-482",
   "lead_id": "LEAD-1741000000000-482",
   "name": "Aman Sharma",
   "whatsapp_number": "9876543210",
-  "education": "Graduate",
-  "college_course": "BCA",
-  "assessment_score": 70,
-  "computer_score": 20,
-  "excel_data_score": 10,
-  "problem_solving_score": 10,
-  "ai_score": 20,
-  "communication_score": 10,
-  "assessment_completed": true,
-  "detailed_check_requested": false,
-  "detailed_check_date": "",
-  "one_week_experience_requested": false,
-  "one_week_experience_start_date": "",
-  "source": "instagram",
-  "campaign": "mandsaur_meta_ad_v1",
-  "ad_name": "degree_hai_jobready_ho",
-  "utm_source": "instagram",
-  "utm_medium": "paid_social",
-  "utm_campaign": "mandsaur_meta_ad_v1",
-  "utm_content": "degree_hai_jobready_ho",
-  "utm_term": "",
+  "assessment_score": 75,
+  "status": "Score Generated",
   "created_at": "2026-09-03T11:40:00.000Z"
 }
 ```
+
+### Wix CMS Columns Supported Automatically
+The payload sends fields formatted to match whatever column keys you define in Wix CMS:
+- **Exact Section Names**:
+  - `Logical & Quantitative Thinking` (`X/15`)
+  - `SQL & Database Thinking` (`X/15`)
+  - `Python & Data Understanding` (`X/15`)
+  - `Power BI, Visualisation & AI` (`X/20`)
+  - `Communication & Career Readiness` (`X/20`)
+  - `Excel & Data Handling` (`X/15`)
+- **Wix camelCase & PascalCase Keys**:
+  - `logicalQuantitativeThinking` / `LogicalQuantitativeThinking`
+  - `sqlDatabaseThinking` / `SqlDatabaseThinking`
+  - `pythonDataUnderstanding` / `PythonDataUnderstanding`
+  - `powerBiVisualisationAi` / `PowerBiVisualisationAi`
+  - `communicationCareerReadiness` / `CommunicationCareerReadiness`
+  - `excelDataHandling` / `ExcelDataHandling`
+- **Short & Snake-Case Keys**:
+  - `logical_quant_score` / `LogicalQuantScore`
+  - `sql_db_score` / `SqlDbScore`
+  - `python_data_score` / `PythonDataScore`
+  - `powerbi_ai_score` / `PowerbiAiScore`
+  - `communication_score` / `CommunicationScore`
+  - `excel_data_score` / `ExcelDataScore`
+- **Raw Numerical Marks**:
+  - `logical_quant_marks`, `sql_db_marks`, `python_data_marks`, `powerbi_ai_marks`, `communication_marks`, `excel_data_marks`
 
 Leads are automatically stored in the browser's `localStorage` under `iota_jobready_leads` so no lead is lost, and simultaneously sent via `POST` to `LEADS_API_ENDPOINT` if configured.
 
@@ -139,8 +158,8 @@ The engine tracks the following events:
 1. `PageView`: Standard page load
 2. `ViewContent`: Landing page viewed
 3. `AssessmentStarted`: When user clicks "START FREE CHECK"
-4. `AssessmentCompleted`: When user completes Question 10
-5. `Lead`: When user enters name, phone, education and requests score
+4. `AssessmentCompleted`: When user completes all assessment questions
+5. `Lead`: When user enters name and WhatsApp number and requests score
 6. `DetailedCheckBooked`: When user books Free Detailed Check at Ramtekri Mandsaur
 7. `OneWeekExperienceBooked`: When user books the 1-Week Class Experience
 

@@ -1,5 +1,5 @@
 /**
- * IOTA Academy Mandsaur - Job-Ready Assessment Engine
+ * IOTA Academy Indore (Bhanwarkua) - Job-Ready Assessment Engine
  * Handles questions, scoring, lead capture, validations, result generation & bookings.
  */
 
@@ -48,7 +48,6 @@
     viewLeadEl,
     viewResultEl,
     bookingModalEl,
-    expModalEl,
     successModalEl,
     quizTimerBadgeEl,
     quizTimerDisplayEl,
@@ -65,9 +64,8 @@
     viewQuizEl = document.getElementById("quiz-step-view");
     viewLeadEl = document.getElementById("lead-step-view");
     viewResultEl = document.getElementById("result-step-view");
-    bookingModalEl = document.getElementById("detailed-booking-modal");
-    expModalEl = document.getElementById("experience-booking-modal");
-    successModalEl = document.getElementById("success-alert-modal");
+    bookingModalEl = document.getElementById("counselling-booking-modal") || document.getElementById("detailed-booking-modal");
+    successModalEl = document.getElementById("success-modal") || document.getElementById("success-alert-modal");
 
     // Timer DOM elements
     quizTimerBadgeEl = document.getElementById("quiz-timer-badge");
@@ -141,39 +139,24 @@
       leadForm.addEventListener("submit", handleLeadSubmit);
     }
 
-    // Detailed Check CTAs
-    const bookCheckBtns = document.querySelectorAll(".js-book-detailed-check");
-    bookCheckBtns.forEach((btn) => {
+    // 1-on-1 Counselling CTAs
+    const bookCounsellingBtns = document.querySelectorAll(".js-book-counselling");
+    bookCounsellingBtns.forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
-        openDetailedBookingModal();
+        openCounsellingModal();
       });
     });
 
-    // 1-Week Experience CTAs
-    const bookExpBtns = document.querySelectorAll(".js-book-experience");
-    bookExpBtns.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        openExperienceModal();
-      });
-    });
-
-    // Booking Forms
-    const detailedForm = document.getElementById("detailed-check-form");
-    if (detailedForm) {
-      detailedForm.addEventListener("submit", handleDetailedCheckBooking);
-    }
-
-    const expForm = document.getElementById("experience-form");
-    if (expForm) {
-      expForm.addEventListener("submit", handleExperienceBooking);
+    // Counselling Booking Form
+    const counsellingForm = document.getElementById("counselling-booking-form");
+    if (counsellingForm) {
+      counsellingForm.addEventListener("submit", handleCounsellingBooking);
     }
 
     // Modal backdrops
     window.addEventListener("click", (e) => {
-      if (e.target === bookingModalEl) closeBookingModal();
-      if (e.target === expModalEl) closeExpModal();
+      if (e.target === bookingModalEl) closeCounsellingModal();
       if (e.target === successModalEl) closeSuccessModal();
     });
 
@@ -205,7 +188,7 @@
         const encodedMsg = encodeURIComponent(message);
 
         if (!rawNumber) {
-          alert("IOTA Mandsaur WhatsApp number will be connected shortly. Please use the booking form or visit Ramtekri Mandsaur.");
+          alert("IOTA Indore WhatsApp number will be connected shortly. Please use the booking form or visit Bhanwarkua, Indore.");
           return;
         }
 
@@ -674,11 +657,11 @@
       lead_id: leadId,
       name: name,
       whatsapp_number: phone,
-      branch: "Mandsaur - Ramtekri",
+      branch: "Indore - Bhanwarkua",
       assessment_score: state.scores.total,
       assessmentScore: state.scores.total,
       source: utm.utm_source || "direct",
-      campaign: utm.utm_campaign || "jobready_mandsaur",
+      campaign: utm.utm_campaign || "jobready_indore",
       ad_name: utm.utm_content || "",
       created_at: new Date().toISOString()
     };
@@ -893,34 +876,37 @@
     }
   }
 
-  // Detailed Booking Modal Flow
-  function openDetailedBookingModal() {
+  // 1-on-1 Career Counselling Modal Flow (Indore Bhanwarkua)
+  function openCounsellingModal() {
+    if (!bookingModalEl) {
+      bookingModalEl = document.getElementById("counselling-booking-modal") || document.getElementById("detailed-booking-modal");
+    }
     if (!bookingModalEl) return;
     bookingModalEl.classList.remove("hidden");
     bookingModalEl.classList.add("active");
+    document.body.classList.add("modal-open");
 
     // Pre-fill phone & name if available
-    const nameInput = document.getElementById("detailed-name");
-    const phoneInput = document.getElementById("detailed-phone");
+    const nameInput = document.getElementById("counselling-name");
+    const phoneInput = document.getElementById("counselling-phone");
     if (state.currentLead) {
       if (nameInput) nameInput.value = state.currentLead.name;
-      if (phoneInput) phoneInput.value = state.currentLead.whatsapp_number;
+      if (phoneInput) phoneInput.value = state.currentLead.whatsapp_number || state.currentLead.phone;
     }
   }
 
-  function closeBookingModal() {
+  function closeCounsellingModal() {
     if (!bookingModalEl) return;
     bookingModalEl.classList.remove("active");
     bookingModalEl.classList.add("hidden");
+    document.body.classList.remove("modal-open");
   }
 
-  
   function openSuccessModal(title, desc) {
     if (!successModalEl) return;
 
-    // Close all previous popups (assessment scorecard modal and booking modals)
-    closeBookingModal();
-    closeExpModal();
+    // Close all previous popups
+    closeCounsellingModal();
     if (modalEl) {
       modalEl.classList.remove("active");
       modalEl.classList.add("hidden");
@@ -957,12 +943,12 @@
     if (stickyCTA) stickyCTA.style.display = "";
   }
 
-  function handleDetailedCheckBooking(e) {
+  function handleCounsellingBooking(e) {
     e.preventDefault();
-    const dateInput = document.getElementById("detailed-date");
-    const timeInput = document.getElementById("detailed-time");
-    const nameInput = document.getElementById("detailed-name");
-    const phoneInput = document.getElementById("detailed-phone");
+    const dateInput = document.getElementById("counselling-date");
+    const timeInput = document.getElementById("counselling-time");
+    const nameInput = document.getElementById("counselling-name");
+    const phoneInput = document.getElementById("counselling-phone");
 
     const preferredDate = dateInput ? dateInput.value : "";
     const preferredTime = timeInput ? timeInput.value : "";
@@ -975,90 +961,23 @@
     }
 
     if (state.currentLead) {
-      state.currentLead.status = "Detailed Check Requested";
-      state.currentLead.Status = "Detailed Check Requested";
-      state.currentLead.detailed_check_requested = true;
-      state.currentLead.detailedCheckRequested = true;
-      state.currentLead.detailed_check_date = `${preferredDate} ${preferredTime}`;
-      state.currentLead.detailedCheckDate = `${preferredDate} ${preferredTime}`;
-      state.currentLead.PreferredDate = preferredDate;
+      state.currentLead.status = "Counselling Requested";
+      state.currentLead.counselling_requested = true;
+      state.currentLead.counselling_date = `${preferredDate} ${preferredTime}`;
       state.currentLead.preferredDate = preferredDate;
-      state.currentLead.PreferredTimeSlot = preferredTime;
       state.currentLead.preferredTimeSlot = preferredTime;
       persistLead(state.currentLead);
     }
 
-    tracking.trackEvent("DetailedCheckBooked", {
+    tracking.trackEvent("CounsellingBooked", {
       preferred_date: preferredDate,
       preferred_time: preferredTime
     });
 
-    closeBookingModal();
+    closeCounsellingModal();
     openSuccessModal(
-      "Detailed Check Booked!",
-      `Thank you, ${name}! Your Free Detailed Job-Ready Check at IOTA Academy Mandsaur (Ramtekri) is recorded. Our team will coordinate with you, or you can call, WhatsApp, or check our classroom address directly below.`
-    );
-  }
-
-  // 1-Week Experience Modal Flow
-  function openExperienceModal() {
-    if (!expModalEl) return;
-    expModalEl.classList.remove("hidden");
-    expModalEl.classList.add("active");
-
-    const nameInput = document.getElementById("exp-name");
-    const phoneInput = document.getElementById("exp-phone");
-    if (state.currentLead) {
-      if (nameInput) nameInput.value = state.currentLead.name;
-      if (phoneInput) phoneInput.value = state.currentLead.whatsapp_number;
-    }
-  }
-
-  function closeExpModal() {
-    if (!expModalEl) return;
-    expModalEl.classList.remove("active");
-    expModalEl.classList.add("hidden");
-  }
-
-  function handleExperienceBooking(e) {
-    e.preventDefault();
-    const nameInput = document.getElementById("exp-name");
-    const phoneInput = document.getElementById("exp-phone");
-    const programSelect = document.getElementById("exp-program");
-
-    const name = nameInput ? nameInput.value.trim() : "";
-    const phone = phoneInput ? phoneInput.value.replace(/\D/g, "") : "";
-    const program = programSelect ? programSelect.value : "Data Analytics with AI";
-
-    if (!name || phone.length !== 10) {
-      alert("Please provide your name and a valid 10-digit WhatsApp number.");
-      return;
-    }
-
-    if (state.currentLead) {
-      state.currentLead.status = "1-Week Experience Requested";
-      state.currentLead.Status = "1-Week Experience Requested";
-      state.currentLead.one_week_experience_requested = true;
-      state.currentLead.oneWeekExperienceRequested = true;
-      state.currentLead.one_week_experience_program = program;
-      state.currentLead.oneWeekExperienceProgram = program;
-      state.currentLead.one_week_experience_start_date = new Date().toISOString().split("T")[0];
-      state.currentLead.oneWeekExperienceStartDate = new Date().toISOString().split("T")[0];
-      state.currentLead.PreferredDate = new Date().toISOString().split("T")[0];
-      state.currentLead.preferredDate = new Date().toISOString().split("T")[0];
-      state.currentLead.PreferredTimeSlot = program;
-      state.currentLead.preferredTimeSlot = program;
-      persistLead(state.currentLead);
-    }
-
-    tracking.trackEvent("OneWeekExperienceBooked", {
-      program: program
-    });
-
-    closeExpModal();
-    openSuccessModal(
-      "1-Week Experience Reserved!",
-      `Congratulations, ${name}! Your 1-Week regular-class experience slot for "${program}" at Ramtekri Mandsaur is requested. You can connect with our team directly below.`
+      "1-on-1 Counselling Confirmed!",
+      `Thank you, ${name}! Your Free 1-on-1 Career Counselling at IOTA Academy Indore (Bhanwarkua) is scheduled. Our mentor team will connect with you, or you can call, WhatsApp, or visit directly below.`
     );
   }
 
@@ -1072,14 +991,12 @@
       .replace(/'/g, "&#039;");
   }
 
-  // Expose engine API
+  // Expose engine API for Indore
   window.IOTA_ASSESSMENT = {
     open: openAssessment,
     close: closeAssessmentModal,
-    openDetailedBooking: openDetailedBookingModal,
-    closeDetailedBooking: closeBookingModal,
-    openExperienceBooking: openExperienceModal,
-    closeExperienceBooking: closeExpModal,
+    openCounsellingBooking: openCounsellingModal,
+    closeCounsellingBooking: closeCounsellingModal,
     openSuccessModal: openSuccessModal,
     closeSuccessModal: closeSuccessModal
   };
