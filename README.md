@@ -76,8 +76,8 @@ window.IOTA_CONFIG = {
   BRANCH_LOCATION: "Ramtekri, Mandsaur, Madhya Pradesh",
   TAGLINE: "Become Job-Ready.",
 
-  // Official Mandsaur WhatsApp Number (country code + 10 digits, e.g. 917024040225)
-  WHATSAPP_NUMBER: "917024040225",
+  // Official Mandsaur WhatsApp Number (country code + 10 digits, e.g. 916266788172)
+  WHATSAPP_NUMBER: "916266788172",
 
   // Meta Pixel ID (e.g. "123456789012345")
   META_PIXEL_ID: "", 
@@ -105,12 +105,12 @@ Every assessment submission generates a structured lead object with section scor
   "Score": 75,
   "TotalScore": 75,
   "ScoreFormatted": "75/100",
-  "Logical & Quantitative Thinking": "12/15",
-  "SQL & Database Thinking": "12/15",
-  "Python & Data Understanding": "9/15",
-  "Power BI, Visualisation & AI": "16/20",
-  "Communication & Career Readiness": "16/20",
-  "Excel & Data Handling": "10/15",
+  "Aptitude & Maths": "12/15",
+  "SQL": "12/15",
+  "Python": "9/15",
+  "Power BI & Data Visualisation": "16/20",
+  "Career & Interview Readiness": "16/20",
+  "Excel": "10/15",
   "title": "LEAD-1741000000000-482",
   "lead_id": "LEAD-1741000000000-482",
   "name": "Aman Sharma",
@@ -124,17 +124,18 @@ Every assessment submission generates a structured lead object with section scor
 ### Wix CMS Columns Supported Automatically
 The payload sends fields formatted to match whatever column keys you define in Wix CMS:
 - **Exact Section Names**:
-  - `Logical & Quantitative Thinking` (`X/15`)
-  - `SQL & Database Thinking` (`X/15`)
-  - `Python & Data Understanding` (`X/15`)
-  - `Power BI, Visualisation & AI` (`X/20`)
-  - `Communication & Career Readiness` (`X/20`)
-  - `Excel & Data Handling` (`X/15`)
+  - `Aptitude & Maths` (`X/15`)
+  - `SQL` (`X/15`)
+  - `Python` (`X/15`)
+  - `Power BI & Data Visualisation` (`X/20`)
+  - `Career & Interview Readiness` (`X/20`)
+  - `Excel` (`X/15`)
 - **Wix camelCase & PascalCase Keys**:
   - `logicalQuantitativeThinking` / `LogicalQuantitativeThinking`
   - `sqlDatabaseThinking` / `SqlDatabaseThinking`
   - `pythonDataUnderstanding` / `PythonDataUnderstanding`
   - `powerBiVisualisationAi` / `PowerBiVisualisationAi`
+  - `careerInterviewReadiness` / `CareerInterviewReadiness`
   - `communicationCareerReadiness` / `CommunicationCareerReadiness`
   - `excelDataHandling` / `ExcelDataHandling`
 - **Short & Snake-Case Keys**:

@@ -13,10 +13,17 @@
   };
   const questions = window.IOTA_QUESTIONS || [];
 
+  function getQuestions() {
+    if (window.IOTA_QUESTIONS && Array.isArray(window.IOTA_QUESTIONS) && window.IOTA_QUESTIONS.length > 0) {
+      return window.IOTA_QUESTIONS;
+    }
+    return questions || [];
+  }
+
   // Assessment State
   const state = {
     currentIndex: 0,
-    answers: new Array(questions.length).fill(null),
+    answers: new Array(35).fill(null),
     currentLead: null,
     scores: {
       total: 0,
@@ -26,6 +33,7 @@
       python_data: 0,
       powerbi_ai: 0,
       communication: 0,
+      interview_puzzle: 0,
       // Legacy backwards-compatibility keys
       computer: 0,
       problem_solving: 0,
@@ -50,6 +58,7 @@
     bookingModalEl,
     expModalEl,
     successModalEl,
+    reportModalEl,
     quizTimerBadgeEl,
     quizTimerDisplayEl,
     headerTimerBadgeEl,
@@ -68,6 +77,7 @@
     bookingModalEl = document.getElementById("detailed-booking-modal");
     expModalEl = document.getElementById("experience-booking-modal");
     successModalEl = document.getElementById("success-alert-modal");
+    reportModalEl = document.getElementById("report-sent-modal");
 
     // Timer DOM elements
     quizTimerBadgeEl = document.getElementById("quiz-timer-badge");
@@ -233,22 +243,23 @@
     modalEl.classList.remove("hidden");
     modalEl.classList.add("active");
 
+    const qList = getQuestions();
+
     // Hide sticky CTA while in assessment
     const stickyCTA = document.getElementById("sticky-mobile-cta");
     if (stickyCTA) stickyCTA.style.display = "none";
 
     // Start tracking
     tracking.trackEvent("AssessmentStarted", {
-      total_questions: questions.length
+      total_questions: qList.length
     });
 
-    // If starting fresh
-    if (!state.currentLead) {
-      state.currentIndex = 0;
-      state.answers = new Array(questions.length).fill(null);
-      resetTimer();
-      showInstructionStep();
-    }
+    // Always reset state for fresh assessment run
+    state.currentIndex = 0;
+    state.answers = new Array(qList.length).fill(null);
+    resetTimer();
+    showInstructionStep();
+    renderCurrentQuestion();
   }
 
   function closeAssessmentModal() {
@@ -266,6 +277,10 @@
 
   function showInstructionStep() {
     stopTimer();
+    state.currentIndex = 0;
+    const qList = getQuestions();
+    state.answers = new Array(qList.length).fill(null);
+
     if (headerTimerBadgeEl) headerTimerBadgeEl.classList.add("hidden");
     if (timeoutAlertEl) timeoutAlertEl.classList.add("hidden");
     resetTimer();
@@ -287,8 +302,9 @@
     if (viewIntroEl) viewIntroEl.classList.add("hidden");
     viewQuizEl.classList.remove("hidden");
     viewLeadEl.classList.add("hidden");
-    viewResultEl.classList.add("hidden");
+    if (viewResultEl) viewResultEl.classList.add("hidden");
     if (headerTimerBadgeEl) headerTimerBadgeEl.classList.remove("hidden");
+    renderCurrentQuestion();
   }
 
   function showLeadStep() {
@@ -405,13 +421,23 @@
 
   // Render question card
   function renderCurrentQuestion() {
-    const q = questions[state.currentIndex];
+    const qList = getQuestions();
+    if (!qList || qList.length === 0) {
+      console.error("[IOTA Assessment] No questions available!");
+      return;
+    }
+
+    if (state.currentIndex < 0 || state.currentIndex >= qList.length) {
+      state.currentIndex = 0;
+    }
+
+    const q = qList[state.currentIndex];
     if (!q) return;
 
     // Update Counter & Category
     const counterEl = document.getElementById("quiz-counter");
     if (counterEl) {
-      counterEl.textContent = `Question ${state.currentIndex + 1} of ${questions.length}`;
+      counterEl.textContent = `Question ${state.currentIndex + 1} of ${qList.length}`;
     }
 
     const catBadge = document.getElementById("quiz-category-badge");
@@ -422,7 +448,7 @@
     // Update Progress bar
     const progressBar = document.getElementById("quiz-progress-bar");
     if (progressBar) {
-      const pct = Math.round(((state.currentIndex + 1) / questions.length) * 100);
+      const pct = Math.round(((state.currentIndex + 1) / qList.length) * 100);
       progressBar.style.width = `${pct}%`;
       progressBar.setAttribute("aria-valuenow", pct);
     }
@@ -479,7 +505,7 @@
     if (nextBtn) {
       nextBtn.disabled = false;
 
-      if (state.currentIndex === questions.length - 1) {
+      if (state.currentIndex === qList.length - 1) {
         nextBtn.innerHTML = `See My Job-Ready Score <span class="arrow">→</span>`;
       } else {
         nextBtn.innerHTML = `Next <span class="arrow">→</span>`;
@@ -530,6 +556,7 @@
   }
 
   function handleNextQuestion() {
+    const qList = getQuestions();
     // If no option is selected for the current question, show red mandatory alert
     if (state.answers[state.currentIndex] === null || state.answers[state.currentIndex] === undefined) {
       showMandatoryAlert();
@@ -538,7 +565,7 @@
 
     hideMandatoryAlert();
 
-    if (state.currentIndex < questions.length - 1) {
+    if (state.currentIndex < qList.length - 1) {
       state.currentIndex++;
       renderCurrentQuestion();
     } else {
@@ -563,8 +590,9 @@
     }
   }
 
-  // Calculate score breakdown based on exact question marks (Q1-20: 3pts, Q21-30: 4pts)
+  // Calculate score breakdown based on exact question marks (Q1-20: 3pts, Q21-35: 4pts)
   function calculateScores() {
+    const qList = getQuestions();
     const scores = {
       total: 0,
       logical_quant: 0,
@@ -573,18 +601,25 @@
       python_data: 0,
       powerbi_ai: 0,
       communication: 0,
+      interview_puzzle: 0,
       // Legacy aliases
       computer: 0,
       problem_solving: 0,
       ai_work: 0
     };
 
-    questions.forEach((q, idx) => {
+    let rawTotal = 0;
+    let maxPossible = 0;
+
+    qList.forEach((q, idx) => {
+      const qMarks = q.marks || (idx < 20 ? 3 : 4);
+      maxPossible += qMarks;
+
       const selectedOptIndex = state.answers[idx];
-      if (selectedOptIndex !== null && q.options[selectedOptIndex]) {
+      if (selectedOptIndex !== null && selectedOptIndex !== undefined && q.options[selectedOptIndex]) {
         const points = q.options[selectedOptIndex].points || 0;
         scores[q.category] = (scores[q.category] || 0) + points;
-        scores.total += points;
+        rawTotal += points;
       }
     });
 
@@ -593,8 +628,12 @@
     scores.problem_solving = scores.sql_db;
     scores.ai_work = scores.powerbi_ai;
 
-    // Safety: total score can never exceed 100
-    scores.total = Math.min(100, Math.max(0, scores.total));
+    // Normalize total score out of 100
+    if (maxPossible > 0) {
+      scores.total = Math.min(100, Math.max(0, Math.round((rawTotal / maxPossible) * 100)));
+    } else {
+      scores.total = Math.min(100, Math.max(0, rawTotal));
+    }
 
     state.scores = scores;
     return scores;
@@ -652,22 +691,33 @@
     const powerbiAiBreakdown = `${state.scores.powerbi_ai}/20`;
     const communicationBreakdown = `${state.scores.communication}/20`;
     const excelDataBreakdown = `${state.scores.excel_data}/15`;
+    const interviewPuzzleBreakdown = `${state.scores.interview_puzzle}/20`;
     const totalScoreFormatted = `${state.scores.total}/100`;
 
     const leadRecord = {
-      // 10 Exact Wix CMS Keys
+      // Wix CMS Keys
       fullName: name,
       phone: phone,
       score: state.scores.total,
       createdDateTime: new Date().toISOString(),
       status: "Score Generated",
 
-      // 5 Section Breakdown Scores (format: "4/15", "12/15", "16/20", etc.)
+      // Section Breakdown Scores (format: "4/15", "12/15", "16/20", etc.)
+      aptitudeMaths: logicalQuantBreakdown,
       logicalQuantitativeThinking: logicalQuantBreakdown,
+      excel: excelDataBreakdown,
+      excelData: excelDataBreakdown,
+      sql: sqlDbBreakdown,
       sqlDatabaseThinking: sqlDbBreakdown,
+      python: pythonDataBreakdown,
       pythonDataUnderstanding: pythonDataBreakdown,
+      powerBiDataVisualisation: powerbiAiBreakdown,
+      powerBi: powerbiAiBreakdown,
       powerBiVisualisationAi: powerbiAiBreakdown,
+      careerInterviewReadiness: communicationBreakdown,
       communicationCareerReadiness: communicationBreakdown,
+      interviewPuzzle: interviewPuzzleBreakdown,
+      interviewPuzzles: interviewPuzzleBreakdown,
 
       // Local tracking & attribution
       title: name,
@@ -698,9 +748,10 @@
     setTimeout(() => {
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = "SHOW MY JOB-READY SCORE";
+        submitBtn.textContent = "Get Score Report";
       }
-      showResultStep();
+      closeAssessmentModal();
+      openReportModal(phone);
     }, 450);
   }
 
@@ -817,42 +868,48 @@
       stageDescEl.innerHTML = `${escapeHtml(stageInfo.message)} <span style="display:block; margin-top: 6px; font-weight: 700; color: #1e3a8a;">Recommended next step: ${escapeHtml(stageInfo.nextStep)}</span>`;
     }
 
-    // Render 6 V2 Core Sections
+    // Render 7 Core Sections
     const categoriesMeta = [
       {
         key: "logical_quant",
-        title: "Logical & Quantitative Thinking",
+        title: "Aptitude & Maths",
         score: state.scores.logical_quant,
         max: 15
       },
       {
         key: "excel_data",
-        title: "Excel & Data Handling",
+        title: "Excel",
         score: state.scores.excel_data,
         max: 15
       },
       {
         key: "sql_db",
-        title: "SQL & Database Thinking",
+        title: "SQL",
         score: state.scores.sql_db,
         max: 15
       },
       {
         key: "python_data",
-        title: "Python & Data Understanding",
+        title: "Python",
         score: state.scores.python_data,
         max: 15
       },
       {
         key: "powerbi_ai",
-        title: "Power BI, Visualisation & AI",
+        title: "Power BI & Data Visualisation",
         score: state.scores.powerbi_ai,
         max: 20
       },
       {
         key: "communication",
-        title: "Communication & Career Readiness",
+        title: "Career & Interview Readiness",
         score: state.scores.communication,
+        max: 20
+      },
+      {
+        key: "interview_puzzle",
+        title: "Interview Puzzle",
+        score: state.scores.interview_puzzle,
         max: 20
       }
     ];
@@ -914,7 +971,7 @@
     bookingModalEl.classList.add("hidden");
   }
 
-  
+
   function openSuccessModal(title, desc) {
     if (!successModalEl) return;
 
@@ -934,7 +991,7 @@
     if (titleEl && title) titleEl.textContent = title;
     if (descEl && desc) descEl.textContent = desc;
     if (callBtn) {
-      const phone = (config.WHATSAPP_NUMBER || "7024040225").replace(/\D/g, "");
+      const phone = (config.WHATSAPP_NUMBER || "6266788172").replace(/\D/g, "");
       callBtn.href = `tel:${phone}`;
       const phoneVal = callBtn.querySelector(".success-action-value");
       if (phoneVal) phoneVal.textContent = `+91 ${phone}`;
@@ -955,6 +1012,34 @@
     // Re-enable sticky CTA
     const stickyCTA = document.getElementById("sticky-mobile-cta");
     if (stickyCTA) stickyCTA.style.display = "";
+  }
+
+  function openReportModal(phoneNumber) {
+    if (!reportModalEl) {
+      reportModalEl = document.getElementById("report-sent-modal");
+    }
+    if (reportModalEl) {
+      const phoneDisplay = document.getElementById("report-modal-phone");
+      if (phoneDisplay) {
+        phoneDisplay.textContent = phoneNumber ? `${phoneNumber}` : "";
+      }
+      document.body.classList.add("modal-open");
+      reportModalEl.classList.remove("hidden");
+      reportModalEl.classList.add("active");
+    } else {
+      alert(`Thanks for the Giving the Job Ready Check..your report is sent to your whatsapp no. ${phoneNumber}`);
+    }
+  }
+
+  function closeReportModal() {
+    if (!reportModalEl) {
+      reportModalEl = document.getElementById("report-sent-modal");
+    }
+    if (reportModalEl) {
+      reportModalEl.classList.remove("active");
+      reportModalEl.classList.add("hidden");
+    }
+    document.body.classList.remove("modal-open");
   }
 
   function handleDetailedCheckBooking(e) {
@@ -1076,6 +1161,8 @@
   window.IOTA_ASSESSMENT = {
     open: openAssessment,
     close: closeAssessmentModal,
+    openReportModal: openReportModal,
+    closeReportModal: closeReportModal,
     openDetailedBooking: openDetailedBookingModal,
     closeDetailedBooking: closeBookingModal,
     openExperienceBooking: openExperienceModal,

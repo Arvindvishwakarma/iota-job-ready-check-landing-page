@@ -16,7 +16,7 @@ window.IOTA_CONFIG = {
   // WhatsApp Configuration
   // Put the official 10-digit WhatsApp phone number of IOTA Academy Mandsaur here (with 91 country code, no + or spaces).
   // Example: "919876543210". If blank, WhatsApp buttons will prompt user or fallback gracefully.
-  WHATSAPP_NUMBER: "7024040225", // Configurable WhatsApp contact for IOTA Mandsaur
+  WHATSAPP_NUMBER: "6266788172", // Configurable WhatsApp contact for IOTA Mandsaur
 
   // Default pre-filled messages
   WHATSAPP_MESSAGES: {

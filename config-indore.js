@@ -12,7 +12,7 @@ window.IOTA_CONFIG = {
 
   // WhatsApp Configuration
   // 10-digit WhatsApp number for IOTA Academy Indore (with 91 country code, no + or spaces).
-  WHATSAPP_NUMBER: "7024040225",
+  WHATSAPP_NUMBER: "6266788172",
 
   // Default pre-filled messages
   WHATSAPP_MESSAGES: {
