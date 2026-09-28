@@ -9,11 +9,11 @@ META AD
    ↓
 LANDING PAGE
    ↓
-FREE ONLINE JOB-READY CHECK (30 Practical Questions)
+FREE ONLINE JOB-READY CHECK (35 Practical Questions)
    ↓
 LEAD CAPTURE (Name, 10-Digit WhatsApp)
    ↓
-DYNAMIC JOB-READY SCORECARD (0–100 & Skill Breakdown)
+DYNAMIC JOB-READY SCORECARD (0–35 & Skill Breakdown)
    ↓
 FREE DETAILED CHECK AT RAMTEKRI MANDSAUR / 1-WEEK REGULAR CLASS EXPERIENCE
    ↓
@@ -107,7 +107,7 @@ Submissions are directly dispatched to your Google Sheet:
 The 12 configured columns are:
 1. `Name` (Full Name)
 2. `Phone No` (10-Digit WhatsApp)
-3. `Score` (Total Score out of 100)
+3. `Score` (Total Score out of 35 — 1 mark per question)
 4. `Aptitude & Maths` (5 Questions, e.g. `4/5`)
 5. `Excel` (5 Questions, e.g. `5/5`)
 6. `SQL` (5 Questions, e.g. `4/5`)
@@ -136,9 +136,9 @@ Every assessment submission generates a structured lead object with section scor
 {
   "FullName": "Aman Sharma",
   "Phone": "9876543210",
-  "Score": 85,
-  "TotalScore": 85,
-  "ScoreFormatted": "85/100",
+  "Score": 28,
+  "TotalScore": 28,
+  "ScoreFormatted": "28/35",
   "Aptitude & Maths": "4/5",
   "Excel": "5/5",
   "SQL": "4/5",

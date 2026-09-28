@@ -192,7 +192,7 @@
         let message = config.WHATSAPP_MESSAGES[customType] || config.WHATSAPP_MESSAGES.DEFAULT;
 
         if (state.currentLead && customType === "AFTER_ASSESSMENT") {
-          message += ` My score is ${state.scores.total}/100. Name: ${state.currentLead.name}.`;
+          message += ` My score is ${state.scores.total}/35. Name: ${state.currentLead.name}.`;
         }
 
         const encodedMsg = encodeURIComponent(message);
@@ -604,23 +604,16 @@
       interview_puzzle: 0
     };
 
-    let rawTotal = 0;
-    let maxPossible = 0;
+    let totalCorrect = 0;
 
     qList.forEach((q, idx) => {
-      const qMarks = q.marks || (idx < 20 ? 3 : 4);
-      maxPossible += qMarks;
-
       const selectedOptIndex = state.answers[idx];
       if (selectedOptIndex !== null && selectedOptIndex !== undefined && q.options[selectedOptIndex]) {
         const opt = q.options[selectedOptIndex];
-        const points = opt.points || 0;
-        scores[q.category] = (scores[q.category] || 0) + points;
-        rawTotal += points;
-
-        if (opt.isCorrect) {
+        if (opt.isCorrect || (opt.points && opt.points > 0)) {
+          scores[q.category] = (scores[q.category] || 0) + 1;
           correctCounts[q.category] = (correctCounts[q.category] || 0) + 1;
-          correctCounts.total += 1;
+          totalCorrect += 1;
         }
       }
     });
@@ -630,12 +623,9 @@
     scores.problem_solving = scores.sql_db;
     scores.ai_work = scores.powerbi_ai;
 
-    // Normalize total score out of 100
-    if (maxPossible > 0) {
-      scores.total = Math.min(100, Math.max(0, Math.round((rawTotal / maxPossible) * 100)));
-    } else {
-      scores.total = Math.min(100, Math.max(0, rawTotal));
-    }
+    // Total score is exactly the number of questions answered correctly out of 35
+    scores.total = totalCorrect;
+    correctCounts.total = totalCorrect;
 
     state.scores = scores;
     state.correctCounts = correctCounts;
@@ -706,7 +696,7 @@
     const powerbiScore = `${counts.powerbi_ai || 0}/5`;
     const communicationScore = `${counts.communication || 0}/5`;
     const puzzleScore = `${counts.interview_puzzle || 0}/5`;
-    const totalScoreFormatted = `${state.scores.total}/100`;
+    const totalScoreFormatted = `${state.scores.total}/35`;
 
     // Indian Standard Time Date & Time for Google Sheets
     const now = new Date();
@@ -897,35 +887,35 @@
     }
   }
 
-  // Score interpretation helper based on Master Prompt V2 specifications
+  // Score interpretation helper based on total score out of 35
   function getScoreInterpretation(score) {
-    if (score <= 30) {
+    if (score <= 10) {
       return {
-        stage: "Early Stage (0–30)",
+        stage: "Early Stage (0–10 / 35)",
         message: "The student is currently at an early stage of job-readiness. You may need stronger fundamentals in logical thinking, data understanding, and technical skills.",
         nextStep: "Build fundamentals and understand your learning direction."
       };
-    } else if (score <= 50) {
+    } else if (score <= 17) {
       return {
-        stage: "Developing (31–50)",
+        stage: "Developing (11–17 / 35)",
         message: "You have some awareness or exposure but still have important gaps in practical application.",
         nextStep: "Identify the weakest areas and build practical skills through guided learning and projects."
       };
-    } else if (score <= 70) {
+    } else if (score <= 24) {
       return {
-        stage: "Foundation (51–70)",
+        stage: "Foundation (18–24 / 35)",
         message: "You have a reasonable foundation but need stronger practical application on real-world data.",
         nextStep: "Focus on projects, real-world data, problem-solving, and interview preparation."
       };
-    } else if (score <= 85) {
+    } else if (score <= 29) {
       return {
-        stage: "Strong Foundation (71–85)",
+        stage: "Strong Foundation (25–29 / 35)",
         message: "You demonstrate a strong baseline across several job-readiness areas.",
         nextStep: "Strengthen project depth, communication, and interview readiness."
       };
     } else {
       return {
-        stage: "Advanced Baseline (86–100)",
+        stage: "Advanced Baseline (30–35 / 35)",
         message: "You demonstrate a strong baseline for the assessment.",
         nextStep: "Focus on advanced practical projects, portfolio quality, interview preparation, and role-specific skills."
       };
@@ -936,7 +926,7 @@
   function renderResult() {
     const scoreValEl = document.getElementById("result-score-val");
     if (scoreValEl) {
-      scoreValEl.textContent = `${state.scores.total} / 100`;
+      scoreValEl.textContent = `${state.scores.total} / 35`;
     }
 
     const studentNameEl = document.getElementById("result-student-name");
@@ -956,49 +946,49 @@
       stageDescEl.innerHTML = `${escapeHtml(stageInfo.message)} <span style="display:block; margin-top: 6px; font-weight: 700; color: #1e3a8a;">Recommended next step: ${escapeHtml(stageInfo.nextStep)}</span>`;
     }
 
-    // Render 7 Core Sections
+    // Render 7 Core Sections (Each section has 5 questions, Max 5)
     const categoriesMeta = [
       {
         key: "logical_quant",
         title: "Aptitude & Maths",
         score: state.scores.logical_quant,
-        max: 15
+        max: 5
       },
       {
         key: "excel_data",
         title: "Excel",
         score: state.scores.excel_data,
-        max: 15
+        max: 5
       },
       {
         key: "sql_db",
         title: "SQL",
         score: state.scores.sql_db,
-        max: 15
+        max: 5
       },
       {
         key: "python_data",
         title: "Python",
         score: state.scores.python_data,
-        max: 15
+        max: 5
       },
       {
         key: "powerbi_ai",
         title: "Power BI & Data Visualisation",
         score: state.scores.powerbi_ai,
-        max: 20
+        max: 5
       },
       {
         key: "communication",
         title: "Career & Interview Readiness",
         score: state.scores.communication,
-        max: 20
+        max: 5
       },
       {
         key: "interview_puzzle",
         title: "Interview Puzzle",
         score: state.scores.interview_puzzle,
-        max: 20
+        max: 5
       }
     ];
 
