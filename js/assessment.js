@@ -38,6 +38,16 @@
       computer: 0,
       problem_solving: 0,
       ai_work: 0
+    },
+    correctCounts: {
+      total: 0,
+      logical_quant: 0,
+      excel_data: 0,
+      sql_db: 0,
+      python_data: 0,
+      powerbi_ai: 0,
+      communication: 0,
+      interview_puzzle: 0
     }
   };
 
@@ -608,6 +618,17 @@
       ai_work: 0
     };
 
+    const correctCounts = {
+      total: 0,
+      logical_quant: 0,
+      excel_data: 0,
+      sql_db: 0,
+      python_data: 0,
+      powerbi_ai: 0,
+      communication: 0,
+      interview_puzzle: 0
+    };
+
     let rawTotal = 0;
     let maxPossible = 0;
 
@@ -617,9 +638,15 @@
 
       const selectedOptIndex = state.answers[idx];
       if (selectedOptIndex !== null && selectedOptIndex !== undefined && q.options[selectedOptIndex]) {
-        const points = q.options[selectedOptIndex].points || 0;
+        const opt = q.options[selectedOptIndex];
+        const points = opt.points || 0;
         scores[q.category] = (scores[q.category] || 0) + points;
         rawTotal += points;
+
+        if (opt.isCorrect) {
+          correctCounts[q.category] = (correctCounts[q.category] || 0) + 1;
+          correctCounts.total += 1;
+        }
       }
     });
 
@@ -636,6 +663,7 @@
     }
 
     state.scores = scores;
+    state.correctCounts = correctCounts;
     return scores;
   }
 
@@ -684,40 +712,94 @@
     const utm = tracking.getTrackingParams();
     const leadId = "LEAD-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
 
-    // Section Breakdown Strings in format "score/max" (e.g. 4/15, 12/15, 16/20)
-    const logicalQuantBreakdown = `${state.scores.logical_quant}/15`;
-    const sqlDbBreakdown = `${state.scores.sql_db}/15`;
-    const pythonDataBreakdown = `${state.scores.python_data}/15`;
-    const powerbiAiBreakdown = `${state.scores.powerbi_ai}/20`;
-    const communicationBreakdown = `${state.scores.communication}/20`;
-    const excelDataBreakdown = `${state.scores.excel_data}/15`;
-    const interviewPuzzleBreakdown = `${state.scores.interview_puzzle}/20`;
+    // Section Question Counts out of 5 for each section
+    const counts = state.correctCounts || {
+      logical_quant: 0,
+      excel_data: 0,
+      sql_db: 0,
+      python_data: 0,
+      powerbi_ai: 0,
+      communication: 0,
+      interview_puzzle: 0
+    };
+
+    // Format section scores as "X/5" (e.g. 4/5, 5/5) since every section has 5 questions
+    const logicalQuantScore = `${counts.logical_quant || 0}/5`;
+    const excelScore = `${counts.excel_data || 0}/5`;
+    const sqlScore = `${counts.sql_db || 0}/5`;
+    const pythonScore = `${counts.python_data || 0}/5`;
+    const powerbiScore = `${counts.powerbi_ai || 0}/5`;
+    const communicationScore = `${counts.communication || 0}/5`;
+    const puzzleScore = `${counts.interview_puzzle || 0}/5`;
+
     const totalScoreFormatted = `${state.scores.total}/100`;
 
+    // Indian Standard Time Date & Time for Google Sheets
+    const now = new Date();
+    const submissionDate = now.toLocaleDateString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    });
+    const submissionTime = now.toLocaleTimeString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true
+    });
+
     const leadRecord = {
-      // Wix CMS Keys
+      // Exact Google Sheet Columns matching your sheet (Out of 5 questions each):
+      "Name": name,
+      "Phone No": phone,
+      "Score": state.scores.total,
+      "Aptitude & Maths": logicalQuantScore,
+      "Excel": excelScore,
+      "SQL": sqlScore,
+      "Python": pythonScore,
+      "Power BI & Data Visualisation": powerbiScore,
+      "Career & Interview Readiness": communicationScore,
+      "Interview Puzzle": puzzleScore,
+      "Submission Date": submissionDate,
+      "Submission Time": submissionTime,
+
+      // Fallback aliases
+      "Nname": name,
+      "Section 1 Score": logicalQuantScore,
+      "Section 2 Score": excelScore,
+      "Section 3 Score": sqlScore,
+      "Section 4 Score": pythonScore,
+      "Section 5 Score": powerbiScore,
+      "Section 6 Score": communicationScore,
+      "Section 7 Score": puzzleScore,
+      "Date": submissionDate,
+      "Time": submissionTime,
+
+      // Wix CMS Keys (normalized out of 5)
       fullName: name,
       phone: phone,
       score: state.scores.total,
-      createdDateTime: new Date().toISOString(),
+      createdDateTime: now.toISOString(),
       status: "Score Generated",
 
-      // Section Breakdown Scores (format: "4/15", "12/15", "16/20", etc.)
-      aptitudeMaths: logicalQuantBreakdown,
-      logicalQuantitativeThinking: logicalQuantBreakdown,
-      excel: excelDataBreakdown,
-      excelData: excelDataBreakdown,
-      sql: sqlDbBreakdown,
-      sqlDatabaseThinking: sqlDbBreakdown,
-      python: pythonDataBreakdown,
-      pythonDataUnderstanding: pythonDataBreakdown,
-      powerBiDataVisualisation: powerbiAiBreakdown,
-      powerBi: powerbiAiBreakdown,
-      powerBiVisualisationAi: powerbiAiBreakdown,
-      careerInterviewReadiness: communicationBreakdown,
-      communicationCareerReadiness: communicationBreakdown,
-      interviewPuzzle: interviewPuzzleBreakdown,
-      interviewPuzzles: interviewPuzzleBreakdown,
+      // Section Breakdown Scores (format: "4/5", "5/5", etc.)
+      aptitudeMaths: logicalQuantScore,
+      logicalQuantitativeThinking: logicalQuantScore,
+      excel: excelScore,
+      excelData: excelScore,
+      sql: sqlScore,
+      sqlDatabaseThinking: sqlScore,
+      python: pythonScore,
+      pythonDataUnderstanding: pythonScore,
+      powerBiDataVisualisation: powerbiScore,
+      powerBi: powerbiScore,
+      powerBiVisualisationAi: powerbiScore,
+      careerInterviewReadiness: communicationScore,
+      communicationCareerReadiness: communicationScore,
+      interviewPuzzle: puzzleScore,
+      interviewPuzzles: puzzleScore,
 
       // Local tracking & attribution
       title: name,
@@ -730,7 +812,7 @@
       source: utm.utm_source || "direct",
       campaign: utm.utm_campaign || "jobready_mandsaur",
       ad_name: utm.utm_content || "",
-      created_at: new Date().toISOString()
+      created_at: now.toISOString()
     };
 
     state.currentLead = leadRecord;
@@ -782,7 +864,10 @@
       console.warn("Storage write failed:", e);
     }
 
-    // Call external webhook / backend / Wix HTTP Function if configured
+    // 1. Direct Google Sheet Integration (via Google Apps Script Web App)
+    sendToGoogleSheet(lead);
+
+    // 2. Call external webhook / backend / Wix HTTP Function if configured
     if (config.LEADS_API_ENDPOINT) {
       if (config.LEADS_API_ENDPOINT.includes("yourdomain.com")) {
         console.warn(
@@ -806,6 +891,35 @@
         .catch((err) => {
           console.error("[IOTA Wix CMS] Failed to reach Wix endpoint:", err);
         });
+    }
+  }
+
+  // Dispatch lead data directly to Google Sheet via Google Apps Script Web App
+  function sendToGoogleSheet(lead) {
+    const webappUrl = config.GOOGLE_SHEET_WEBAPP_URL;
+    if (!webappUrl) {
+      console.log("[Google Sheets] Note: GOOGLE_SHEET_WEBAPP_URL is not configured yet in config.js. Lead data saved in browser storage.", lead);
+      return;
+    }
+
+    try {
+      // Use mode: 'no-cors' and text/plain to avoid CORS preflight blocking with Google Apps Script
+      fetch(webappUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(lead)
+      })
+        .then(() => {
+          console.log("[Google Sheets] Lead successfully sent to Google Sheet!");
+        })
+        .catch((err) => {
+          console.error("[Google Sheets] Network error sending to Google Sheet:", err);
+        });
+    } catch (err) {
+      console.error("[Google Sheets] Exception sending to Google Sheet:", err);
     }
   }
 

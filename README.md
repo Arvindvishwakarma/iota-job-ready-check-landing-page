@@ -85,6 +85,11 @@ window.IOTA_CONFIG = {
   // Google Sheets Apps Script Webhook or Backend CRM API endpoint
   LEADS_API_ENDPOINT: "", 
 
+  // Google Sheets Direct Integration
+  GOOGLE_SHEET_ID: "1qu5CCdn8Ka8J-Gg9vbxtvdy-CrIRAoXQLStll0QUj38",
+  GOOGLE_SHEET_NAME: "Job Ready Test",
+  GOOGLE_SHEET_WEBAPP_URL: "https://script.google.com/macros/s/.../exec", // Your Web App URL
+
   // Storage key for localStorage leads backup
   STORAGE_KEY: "iota_jobready_leads",
 
@@ -94,28 +99,58 @@ window.IOTA_CONFIG = {
 
 ---
 
+## 📗 Google Sheets Direct Integration ("Job Ready Test")
+
+Submissions are directly dispatched to your Google Sheet:
+**Sheet Link:** [https://docs.google.com/spreadsheets/d/1qu5CCdn8Ka8J-Gg9vbxtvdy-CrIRAoXQLStll0QUj38/edit](https://docs.google.com/spreadsheets/d/1qu5CCdn8Ka8J-Gg9vbxtvdy-CrIRAoXQLStll0QUj38/edit)
+
+The 12 configured columns are:
+1. `Name` (Full Name)
+2. `Phone No` (10-Digit WhatsApp)
+3. `Score` (Total Score out of 100)
+4. `Aptitude & Maths` (5 Questions, e.g. `4/5`)
+5. `Excel` (5 Questions, e.g. `5/5`)
+6. `SQL` (5 Questions, e.g. `4/5`)
+7. `Python` (5 Questions, e.g. `3/5`)
+8. `Power BI & Data Visualisation` (5 Questions, e.g. `5/5`)
+9. `Career & Interview Readiness` (5 Questions, e.g. `4/5`)
+10. `Interview Puzzle` (5 Questions, e.g. `5/5`)
+11. `Submission Date` (Submission Date, e.g. `28/09/2026`)
+12. `Submission Time` (Submission Time, e.g. `09:40:00 am`)
+
+### ⚡ 3-Step Setup Guide:
+1. Open your Google Sheet and click **Extensions** → **Apps Script**.
+2. Copy all code from `google-apps-script/Code.gs` and paste it into the editor.
+3. Click **Deploy** → **Manage deployments** → **Edit (pencil icon)**:
+   - Version: **New version**
+   - Click **Deploy** and copy the Web app URL.
+4. Paste the URL into `GOOGLE_SHEET_WEBAPP_URL` in [config.js](file:///d:/IOTA%20Programming/jobready/config.js) (and [config-indore.js](file:///d:/IOTA%20Programming/jobready/config-indore.js)).
+
+---
+
 ## 📊 Lead Data Object & Wix CMS Breakdown
 
-Every assessment submission generates a structured lead object with section score breakdowns formatted as `score/max` (e.g. `12/15`, `16/20`):
+Every assessment submission generates a structured lead object with section score breakdowns formatted as questions correct out of 5 (e.g. `4/5`, `5/5`):
 
 ```json
 {
   "FullName": "Aman Sharma",
   "Phone": "9876543210",
-  "Score": 75,
-  "TotalScore": 75,
-  "ScoreFormatted": "75/100",
-  "Aptitude & Maths": "12/15",
-  "SQL": "12/15",
-  "Python": "9/15",
-  "Power BI & Data Visualisation": "16/20",
-  "Career & Interview Readiness": "16/20",
-  "Excel": "10/15",
+  "Score": 85,
+  "TotalScore": 85,
+  "ScoreFormatted": "85/100",
+  "Aptitude & Maths": "4/5",
+  "Excel": "5/5",
+  "SQL": "4/5",
+  "Python": "4/5",
+  "Power BI & Data Visualisation": "5/5",
+  "Career & Interview Readiness": "4/5",
+  "Interview Puzzle": "5/5",
   "title": "LEAD-1741000000000-482",
   "lead_id": "LEAD-1741000000000-482",
   "name": "Aman Sharma",
   "whatsapp_number": "9876543210",
-  "assessment_score": 75,
+  "assessment_score": 85,
   "status": "Score Generated",
   "created_at": "2026-09-03T11:40:00.000Z"
 }
@@ -124,12 +159,13 @@ Every assessment submission generates a structured lead object with section scor
 ### Wix CMS Columns Supported Automatically
 The payload sends fields formatted to match whatever column keys you define in Wix CMS:
 - **Exact Section Names**:
-  - `Aptitude & Maths` (`X/15`)
-  - `SQL` (`X/15`)
-  - `Python` (`X/15`)
-  - `Power BI & Data Visualisation` (`X/20`)
-  - `Career & Interview Readiness` (`X/20`)
-  - `Excel` (`X/15`)
+  - `Aptitude & Maths` (`X/5`)
+  - `Excel` (`X/5`)
+  - `SQL` (`X/5`)
+  - `Python` (`X/5`)
+  - `Power BI & Data Visualisation` (`X/5`)
+  - `Career & Interview Readiness` (`X/5`)
+  - `Interview Puzzle` (`X/5`)
 - **Wix camelCase & PascalCase Keys**:
   - `logicalQuantitativeThinking` / `LogicalQuantitativeThinking`
   - `sqlDatabaseThinking` / `SqlDatabaseThinking`

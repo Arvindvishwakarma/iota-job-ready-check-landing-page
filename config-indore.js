@@ -28,6 +28,12 @@ window.IOTA_CONFIG = {
   // Wix CMS / Backend Endpoint
   LEADS_API_ENDPOINT: "https://www.iotaacademy.in/_functions/jobreadyLead",
 
+  // Google Sheets Direct Integration
+  // Sheet: https://docs.google.com/spreadsheets/d/1qu5CCdn8Ka8J-Gg9vbxtvdy-CrIRAoXQLStll0QUj38/edit?gid=0#gid=0
+  GOOGLE_SHEET_ID: "1qu5CCdn8Ka8J-Gg9vbxtvdy-CrIRAoXQLStll0QUj38",
+  GOOGLE_SHEET_NAME: "Job Ready Test",
+  GOOGLE_SHEET_WEBAPP_URL: "https://script.google.com/macros/s/AKfycbzf4Y4nOHEY1RfIIBjJ6pjTDQ8bD_yhKH9eB0oIX4ZhfVR-sB793NWN9ad6hn4Jfyjw/exec",
+
   // Local Storage Key for offline & backup storage
   STORAGE_KEY: "iota_jobready_leads_indore",
 
